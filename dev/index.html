@@ -1,22 +1,259 @@
-<!doctype html>
-
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <title>&lt;my-element> Demo</title>
-    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-loader.js"></script>
-    <script src="../node_modules/lit/polyfill-support.js"></script>
-    <script type="module" src="../my-element.js"></script>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <meta name="Description" content="Employee Management System - Component Demo" />
+    <base href="../" />
+
     <style>
-      p {
-        border: solid 1px blue;
-        padding: 8px;
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        line-height: 1.6;
+      }
+
+      .demo-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .demo-header {
+        text-align: center;
+        padding: 40px 20px;
+        background: linear-gradient(135deg, #ff6200 0%, #ff8533 100%);
+        color: white;
+        margin-bottom: 40px;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(255, 98, 0, 0.3);
+      }
+
+      .demo-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin: 0 0 10px 0;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .demo-subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin: 0;
+        font-weight: 300;
+      }
+
+      .demo-section {
+        background: white;
+        border-radius: 12px;
+        padding: 30px;
+        margin-bottom: 30px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-title {
+        color: #ff6200;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin: 0 0 20px 0;
+        padding-bottom: 10px;
+        border-bottom: 2px solid #ff6200;
+      }
+
+      .link-button {
+        display: inline-block;
+        background: #ff6200;
+        color: white;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 6px;
+        font-weight: 500;
+        transition: background-color 0.2s;
+        margin: 10px 10px 10px 0;
+      }
+
+      .link-button:hover {
+        background: #e55a00;
+      }
+
+      .feature-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .feature-list li {
+        padding: 8px 0;
+        padding-left: 20px;
+        position: relative;
+      }
+
+      .feature-list li:before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #28a745;
+        font-weight: bold;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 20px;
+        margin-top: 20px;
+      }
+
+      .tech-card {
+        background: #f8f9fa;
+        padding: 20px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #eee;
+      }
+
+      .tech-name {
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 5px;
+      }
+
+      .tech-desc {
+        color: #666;
+        font-size: 14px;
+      }
+
+      code {
+        background: #f8f9fa;
+        padding: 2px 6px;
+        border-radius: 3px;
+        font-family: 'Monaco', 'Menlo', monospace;
+        font-size: 0.9em;
       }
     </style>
+
+    <title>Employee Management System - Demo</title>
   </head>
+
   <body>
-    <my-element>
-      <p>This is child content</p>
-    </my-element>
+    <div class="demo-container">
+      <header class="demo-header">
+        <h1 class="demo-title">Employee Management System</h1>
+        <p class="demo-subtitle">Component Demo & Documentation</p>
+      </header>
+
+      <div class="demo-section">
+        <h2 class="section-title">🚀 Live Application</h2>
+        <p>Experience the full employee management application with all features integrated.</p>
+        <a href="../index.html" class="link-button">Launch Full Application</a>
+      </div>
+
+      <div class="demo-section">
+        <h2 class="section-title">✨ Key Features</h2>
+        <ul class="feature-list">
+          <li>Modern Lit Elements with functional programming patterns</li>
+          <li>Responsive design optimized for all devices</li>
+          <li>Employee CRUD operations (Create, Read, Update, Delete)</li>
+          <li>Advanced filtering and search capabilities</li>
+          <li>Real-time statistics dashboard</li>
+          <li>Form validation with user-friendly error messages</li>
+          <li>Local storage for data persistence</li>
+          <li>Notification system for user feedback</li>
+          <li>Accessible design following WCAG guidelines</li>
+          <li>ING corporate design system integration</li>
+        </ul>
+      </div>
+
+      <div class="demo-section">
+        <h2 class="section-title">🛠 Technical Implementation</h2>
+        <p>This application showcases modern web development practices using cutting-edge technologies:</p>
+        
+        <div class="tech-grid">
+          <div class="tech-card">
+            <div class="tech-name">Lit Elements 3.0</div>
+            <div class="tech-desc">Fast, lightweight web components</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-name">Functional Programming</div>
+            <div class="tech-desc">React-inspired patterns and hooks</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-name">CSS-in-JS</div>
+            <div class="tech-desc">Scoped styling with lit/css</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-name">ES6+ Modules</div>
+            <div class="tech-desc">Modern JavaScript architecture</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-name">Responsive Design</div>
+            <div class="tech-desc">Mobile-first CSS Grid layout</div>
+          </div>
+          <div class="tech-card">
+            <div class="tech-name">Event-Driven</div>
+            <div class="tech-desc">Custom events for component communication</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="demo-section">
+        <h2 class="section-title">📁 Component Architecture</h2>
+        <p>The application is built with three main components:</p>
+        
+        <h3>1. Employee List Component (<code>employee-list.js</code>)</h3>
+        <ul class="feature-list">
+          <li>Displays employees in a responsive card grid</li>
+          <li>Search and filter functionality</li>
+          <li>Employee statistics and empty states</li>
+          <li>Edit and delete actions</li>
+        </ul>
+
+        <h3>2. Employee Form Component (<code>employee-form.js</code>)</h3>
+        <ul class="feature-list">
+          <li>Modal-based form for creating/editing employees</li>
+          <li>Real-time form validation</li>
+          <li>Accessible form controls</li>
+          <li>Responsive layout adaptation</li>
+        </ul>
+
+        <h3>3. Main App Component (<code>employee-app.js</code>)</h3>
+        <ul class="feature-list">
+          <li>Application state management</li>
+          <li>Component orchestration</li>
+          <li>Statistics calculation</li>
+          <li>Local storage integration</li>
+        </ul>
+      </div>
+
+      <div class="demo-section">
+        <h2 class="section-title">🎨 Design System</h2>
+        <p>The application follows ING's design principles:</p>
+        <ul class="feature-list">
+          <li><strong>Primary Color:</strong> ING Orange (#ff6200)</li>
+          <li><strong>Typography:</strong> System fonts for optimal performance</li>
+          <li><strong>Spacing:</strong> 8px grid-based spacing system</li>
+          <li><strong>Components:</strong> Card-based layouts with subtle shadows</li>
+          <li><strong>Interactions:</strong> Smooth transitions and hover effects</li>
+          <li><strong>Accessibility:</strong> WCAG 2.1 AA compliance</li>
+        </ul>
+      </div>
+
+      <div class="demo-section">
+        <h2 class="section-title">🚀 Getting Started</h2>
+        <p>To run this application locally:</p>
+        <ol>
+          <li>Clone the repository</li>
+          <li>Run <code>npm install</code> to install dependencies</li>
+          <li>Run <code>npm run serve</code> to start the development server</li>
+          <li>Open <code>http://localhost:8000</code> in your browser</li>
+        </ol>
+        
+        <a href="../index.html" class="link-button">Start Using the App</a>
+      </div>
+    </div>
   </body>
 </html>
