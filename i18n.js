@@ -6,16 +6,6 @@
 // Language definitions
 const languages = {
   en: {
-    // App Header
-    appTitle: 'Employee Management System',
-    appSubtitle: 'Manage your team with ease and efficiency',
-    
-    // Statistics
-    totalEmployees: 'Total Employees',
-    departments: 'Departments',
-    averageSalary: 'Average Salary',
-    recentHires: 'Recent Hires (6 months)',
-    
     // Employee List
     searchPlaceholder: 'Search employees...',
     allDepartments: 'All Departments',
@@ -32,9 +22,9 @@ const languages = {
     emailAddress: 'Email Address',
     position: 'Position',
     department: 'Department',
-    salary: 'Salary (TRY)',
-    phoneNumber: 'Phone Number',
-    startDate: 'Start Date',
+    phone: 'Phone',
+    startDate: 'Date of Employment',
+    birthDate: 'Date of Birth',
     selectDepartment: 'Select Department',
     cancel: 'Cancel',
     updateEmployee: 'Update Employee',
@@ -45,8 +35,6 @@ const languages = {
     emailInvalid: 'Please enter a valid email address',
     positionRequired: 'Position is required',
     departmentRequired: 'Department is required',
-    salaryRequired: 'Salary is required',
-    salaryInvalid: 'Please enter a valid salary amount',
     phoneRequired: 'Phone is required',
     phoneInvalid: 'Please enter a valid phone number',
     startDateRequired: 'Start date is required',
@@ -55,7 +43,6 @@ const languages = {
     enterFullName: 'Enter full name',
     enterEmail: 'Enter email address',
     enterPosition: 'Enter position',
-    enterSalary: 'Enter salary',
     phonePlaceholder: '+90 5xx xxx xxxx',
     
     // Notifications
@@ -77,11 +64,22 @@ const languages = {
     // Employee Details
     departmentLabel: 'Department:',
     emailLabel: 'Email:',
-    salaryLabel: 'Salary:',
     startDateLabel: 'Start Date:',
     
     // Loading
     loading: 'Loading Employee Management System...',
+    
+    // Pagination
+    itemsPerPage: 'Items per page:',
+    showingItems: 'Showing {start}-{end} of {total}',
+    page: 'Page',
+    of: 'of',
+    previous: 'Previous',
+    next: 'Next',
+    
+    // View Toggle
+    listView: 'List View',
+    tableView: 'Table View',
     
     // Demo Page
     demoTitle: 'Employee Management System',
@@ -98,16 +96,6 @@ const languages = {
   },
   
   tr: {
-    // App Header
-    appTitle: 'Çalışan Yönetim Sistemi',
-    appSubtitle: 'Ekibinizi kolaylıkla ve verimli bir şekilde yönetin',
-    
-    // Statistics
-    totalEmployees: 'Toplam Çalışan',
-    departments: 'Departman',
-    averageSalary: 'Ortalama Maaş',
-    recentHires: 'Son İşe Alınanlar (6 ay)',
-    
     // Employee List
     searchPlaceholder: 'Çalışan ara...',
     allDepartments: 'Tüm Departmanlar',
@@ -124,8 +112,7 @@ const languages = {
     emailAddress: 'E-posta Adresi',
     position: 'Pozisyon',
     department: 'Departman',
-    salary: 'Maaş (TL)',
-    phoneNumber: 'Telefon Numarası',
+    phone: 'Telefon Numarası',
     startDate: 'İşe Başlama Tarihi',
     selectDepartment: 'Departman Seçin',
     cancel: 'İptal',
@@ -137,8 +124,6 @@ const languages = {
     emailInvalid: 'Lütfen geçerli bir e-posta adresi girin',
     positionRequired: 'Pozisyon gereklidir',
     departmentRequired: 'Departman gereklidir',
-    salaryRequired: 'Maaş gereklidir',
-    salaryInvalid: 'Lütfen geçerli bir maaş miktarı girin',
     phoneRequired: 'Telefon gereklidir',
     phoneInvalid: 'Lütfen geçerli bir telefon numarası girin',
     startDateRequired: 'İşe başlama tarihi gereklidir',
@@ -147,7 +132,6 @@ const languages = {
     enterFullName: 'Ad soyad girin',
     enterEmail: 'E-posta adresi girin',
     enterPosition: 'Pozisyon girin',
-    enterSalary: 'Maaş girin',
     phonePlaceholder: '+90 5xx xxx xxxx',
     
     // Notifications
@@ -168,12 +152,23 @@ const languages = {
     
     // Employee Details
     departmentLabel: 'Departman:',
-    emailLabel: 'E-posta:',
-    salaryLabel: 'Maaş:',
+    emailLabel: 'Email:',
     startDateLabel: 'İşe Başlama:',
     
     // Loading
     loading: 'Çalışan Yönetim Sistemi Yükleniyor...',
+    
+    // Pagination
+    itemsPerPage: 'Sayfa başına öğe:',
+    showingItems: '{total} öğeden {start}-{end} gösteriliyor',
+    page: 'Sayfa',
+    of: '/',
+    previous: 'Önceki',
+    next: 'Sonraki',
+    
+    // View Toggle
+    listView: 'Liste Görünümü',
+    tableView: 'Tablo Görünümü',
     
     // Demo Page
     demoTitle: 'Çalışan Yönetim Sistemi',

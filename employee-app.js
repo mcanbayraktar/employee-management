@@ -59,36 +59,49 @@ const appStyles = css`
   :host {
     display: block;
     min-height: 100vh;
-    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .app-container {
     min-height: 100vh;
-    padding: 20px;
   }
 
   .app-header {
-    position: relative;
-    text-align: center;
-    padding: 40px 20px;
-    background: linear-gradient(135deg, #ff6200 0%, #ff8533 100%);
-    color: white;
-    margin-bottom: 40px;
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(255, 98, 0, 0.3);
+    padding-inline: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
   }
 
-  .language-selector {
-    position: absolute;
-    top: 20px;
-    right: 20px;
+  .logo-and-title {
     display: flex;
-    gap: 8px;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+  }
+
+  .app-logo {
+    height: 20px;
+  }
+
+  .app-title {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-left: 20px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .language-flag {
+    cursor: pointer;
+    height: 16px;
   }
 
   .language-btn {
-    padding: 8px 12px;
     border: 2px solid rgba(255, 255, 255, 0.3);
     background: rgba(255, 255, 255, 0.1);
     color: white;
@@ -109,30 +122,6 @@ const appStyles = css`
     background: rgba(255, 255, 255, 0.3);
     border-color: rgba(255, 255, 255, 0.8);
     font-weight: 600;
-  }
-
-  .app-title {
-    font-size: 3rem;
-    font-weight: 700;
-    margin: 0 0 10px 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
-
-  .app-subtitle {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    margin: 0;
-    font-weight: 300;
-  }
-
-  .app-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    margin-bottom: 30px;
-    max-width: 1200px;
-    margin-left: auto;
-    margin-right: auto;
   }
 
   .stat-card {
@@ -161,26 +150,14 @@ const appStyles = css`
   .main-content {
     max-width: 1200px;
     margin: 0 auto;
+    background-color: lightgray;
+    margin-top: 60px; /* push down content so it doesn't overlap header */
   }
 
   @media (max-width: 768px) {
     .app-title {
       font-size: 2rem;
-    }
-    
-    .app-subtitle {
-      font-size: 1rem;
-    }
-    
-    .app-stats {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .app-stats {
-      grid-template-columns: 1fr;
-    }
+    } 
   }
 `;
 
@@ -194,7 +171,7 @@ export class EmployeeApp extends LitElement {
     employees: { type: Array, state: true },
     showForm: { type: Boolean, state: true },
     editingEmployee: { type: Object, state: true },
-    currentLanguage: { type: String, state: true }
+    currentLanguage: { type: 'en' | 'tr', state: true }
   };
 
   constructor() {
@@ -235,7 +212,6 @@ export class EmployeeApp extends LitElement {
         email: 'ahmet.yilmaz@company.com',
         position: 'Senior Frontend Developer',
         department: 'Engineering',
-        salary: 85000,
         startDate: '2022-03-15',
         phone: '+90 532 123 4567'
       },
@@ -245,7 +221,6 @@ export class EmployeeApp extends LitElement {
         email: 'elif.kaya@company.com',
         position: 'UX Designer',
         department: 'Design',
-        salary: 75000,
         startDate: '2023-01-10',
         phone: '+90 535 987 6543'
       },
@@ -255,7 +230,6 @@ export class EmployeeApp extends LitElement {
         email: 'mehmet.demir@company.com',
         position: 'Product Manager',
         department: 'Product',
-        salary: 95000,
         startDate: '2021-11-20',
         phone: '+90 533 456 7890'
       },
@@ -265,7 +239,6 @@ export class EmployeeApp extends LitElement {
         email: 'ayse.ozkan@company.com',
         position: 'Marketing Specialist',
         department: 'Marketing',
-        salary: 60000,
         startDate: '2023-06-01',
         phone: '+90 534 789 0123'
       },
@@ -275,41 +248,10 @@ export class EmployeeApp extends LitElement {
         email: 'can.kilic@company.com',
         position: 'DevOps Engineer',
         department: 'Engineering',
-        salary: 80000,
         startDate: '2022-09-12',
         phone: '+90 536 111 2233'
       }
     ];
-  }
-
-  // Statistics computation (pure functions)
-  getEmployeeStats = () => {
-    const totalEmployees = this.employees.length;
-    // Count unique departments
-    const uniqueDepartments = [];
-    this.employees.forEach(emp => {
-      if (!uniqueDepartments.includes(emp.department)) {
-        uniqueDepartments.push(emp.department);
-      }
-    });
-    const departments = uniqueDepartments.length;
-    
-    const averageSalary = this.employees.length > 0 
-      ? Math.round(this.employees.reduce((sum, emp) => sum + emp.salary, 0) / this.employees.length)
-      : 0;
-    const recentHires = this.employees.filter(emp => {
-      const startDate = new Date(emp.startDate);
-      const sixMonthsAgo = new Date();
-      sixMonthsAgo.setMonth(sixMonthsAgo.getMonth() - 6);
-      return startDate > sixMonthsAgo;
-    }).length;
-
-    return {
-      totalEmployees,
-      departments,
-      averageSalary,
-      recentHires
-    };
   }
 
   // Event handlers
@@ -361,53 +303,19 @@ export class EmployeeApp extends LitElement {
     }, 0);
   }
 
-  formatSalary = (salary) => {
-    return new Intl.NumberFormat('tr-TR', {
-      style: 'currency',
-      currency: 'TRY',
-      minimumFractionDigits: 0
-    }).format(salary);
-  }
-
   // Pure render method
   render() {
-    const stats = this.getEmployeeStats();
-
     return html`
       <div class="app-container">
         <header class="app-header">
-          <div class="language-selector">
-            ${i18n.getAvailableLanguages().map(lang => html`
-              <button 
-                class="language-btn ${this.currentLanguage === lang.code ? 'active' : ''}"
-                @click=${() => this.changeLanguage(lang.code)}
-              >
-                ${lang.nativeName}
-              </button>
-            `)}
+          <div class="logo-and-title">
+            <img class="app-logo" src="./src/logo.png" alt="App Logo">
+            <h1 class="app-title">ING</h1>
           </div>
-          <h1 class="app-title">${i18n.t('appTitle')}</h1>
-          <p class="app-subtitle">${i18n.t('appSubtitle')}</p>
+          <div class="language-selector"> 
+            ${this.currentLanguage === 'en' ? this.renderEnglishFlag() : this.renderTurkishFlag()  }
+          </div>
         </header>
-
-        <div class="app-stats">
-          <div class="stat-card">
-            <div class="stat-value">${stats.totalEmployees}</div>
-            <div class="stat-label">${i18n.t('totalEmployees')}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">${stats.departments}</div>
-            <div class="stat-label">${i18n.t('departments')}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">${i18n.formatCurrency(stats.averageSalary)}</div>
-            <div class="stat-label">${i18n.t('averageSalary')}</div>
-          </div>
-          <div class="stat-card">
-            <div class="stat-value">${stats.recentHires}</div>
-            <div class="stat-label">${i18n.t('recentHires')}</div>
-          </div>
-        </div>
 
         <main class="main-content">
           <employee-list
@@ -428,6 +336,14 @@ export class EmployeeApp extends LitElement {
         ` : ''}
       </div>
     `;
+  }
+
+  renderEnglishFlag() {
+    return html`<img class="language-flag" src="./src/english.png" alt="English" @click=${() => this.changeLanguage('tr')}/>`;
+  }
+
+  renderTurkishFlag() {
+    return html`<img class="language-flag" src="./src/turkish.png" alt="Turkish" @click=${() => this.changeLanguage('en')} />`;
   }
 
   // Lifecycle methods

@@ -67,7 +67,6 @@ Each employee record contains:
 - **Email**: Contact email
 - **Position**: Job title
 - **Department**: Engineering, Design, Product, Marketing, Sales, HR
-- **Salary**: Annual salary in TRY
 - **Phone**: Contact number
 - **Start Date**: Employment start date
 

@@ -21,11 +21,6 @@ const validateRequired = (value) => {
   return value && value.toString().trim().length > 0;
 };
 
-const validateSalary = (salary) => {
-  const num = parseFloat(salary);
-  return !isNaN(num) && num > 0;
-};
-
 // Form validation hook-like functionality
 const useFormValidation = () => {
   return {
@@ -40,9 +35,6 @@ const useFormValidation = () => {
           return validateRequired(value) ? null : i18n.t('positionRequired');
         case 'department':
           return validateRequired(value) ? null : i18n.t('departmentRequired');
-        case 'salary':
-          if (!validateRequired(value)) return i18n.t('salaryRequired');
-          return validateSalary(value) ? null : i18n.t('salaryInvalid');
         case 'phone':
           if (!validateRequired(value)) return i18n.t('phoneRequired');
           return validatePhone(value) ? null : i18n.t('phoneInvalid');
@@ -292,7 +284,6 @@ export class EmployeeForm extends LitElement {
     email: '',
     position: '',
     department: '',
-    salary: '',
     phone: '',
     startDate: ''
   });
@@ -326,7 +317,6 @@ export class EmployeeForm extends LitElement {
       const employeeData = {
         ...this.formData,
         id: this.isEdit ? this.employee.id : Date.now(),
-        salary: parseFloat(this.formData.salary)
       };
       
       this.dispatchEvent(new CustomEvent(eventName, {
@@ -366,7 +356,6 @@ export class EmployeeForm extends LitElement {
         email: employee.email || '',
         position: employee.position || '',
         department: employee.department || '',
-        salary: employee.salary?.toString() || '',
         phone: employee.phone || '',
         startDate: employee.startDate || ''
       };
@@ -453,22 +442,6 @@ export class EmployeeForm extends LitElement {
                   </select>
                   ${this.errors.department ? html`
                     <div class="error-message">${this.errors.department}</div>
-                  ` : ''}
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('salary')} *</label>
-                  <input
-                    type="number"
-                    class="form-input ${this.errors.salary ? 'error' : ''}"
-                    .value=${this.formData.salary}
-                    @input=${this.handleInputChange('salary')}
-                    placeholder=${i18n.t('enterSalary')}
-                    min="0"
-                    step="1000"
-                  />
-                  ${this.errors.salary ? html`
-                    <div class="error-message">${this.errors.salary}</div>
                   ` : ''}
                 </div>
 
