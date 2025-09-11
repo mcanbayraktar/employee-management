@@ -44,12 +44,11 @@ const employeeListStyles = css`
   }
 
   .header {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
     align-items: center;
     margin-bottom: 30px;
-    padding-bottom: 20px;
-    border-bottom: 2px solid #ff6200;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
   }
 
   .title {
@@ -118,20 +117,6 @@ const employeeListStyles = css`
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   }
 
-  .employee-avatar {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff6200, #ff8533);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 15px;
-  }
-
   .employee-name {
     font-size: 18px;
     font-weight: 600;
@@ -168,19 +153,21 @@ const employeeListStyles = css`
   }
 
   .action-button {
-    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 8px 12px;
-    border: 1px solid #ddd;
     border-radius: 4px;
-    background: white;
     cursor: pointer;
     font-size: 12px;
+    font-weight: 400;
     transition: all 0.2s;
   }
 
   .action-button.edit {
-    border-color: #007bff;
-    color: #007bff;
+    border: none;
+    color: white;
+    background-color: #525194;
   }
 
   .action-button.edit:hover {
@@ -189,13 +176,19 @@ const employeeListStyles = css`
   }
 
   .action-button.delete {
-    border-color: #dc3545;
-    color: #dc3545;
+    border: none;
+    color: white;
+    background-color: #ED6C2D;
   }
 
   .action-button.delete:hover {
     background: #dc3545;
     color: white;
+  }
+
+  .action-icon {
+    width: 14px;
+    height: 14px;
   }
 
   .empty-state {
@@ -213,17 +206,12 @@ const employeeListStyles = css`
   /* View Toggle Styles */
   .view-toggle {
     display: flex;
-    gap: 10px;
     align-items: center;
-    margin-bottom: 20px;
+    justify-content: flex-end;
   }
 
   .view-toggle-button {
     padding: 8px 16px;
-    border: 2px solid #ff6200;
-    background: white;
-    color: #ff6200;
-    border-radius: 6px;
     cursor: pointer;
     font-size: 14px;
     font-weight: 500;
@@ -231,15 +219,18 @@ const employeeListStyles = css`
     display: flex;
     align-items: center;
     gap: 5px;
-  }
-
-  .view-toggle-button:hover {
-    background: #fff3e6;
+    opacity: 0.2;
+    background: none;
+    border: none;
   }
 
   .view-toggle-button.active {
-    background: #ff6200;
-    color: white;
+    opacity: 1;
+  }
+
+  .view-icon {
+    width: 16px;
+    height: 16px;
   }
 
   /* Table View Styles */
@@ -254,7 +245,7 @@ const employeeListStyles = css`
   .table-header {
     background: #f8f9fa;
     display: grid;
-    grid-template-columns: 60px 2fr 1.5fr 1fr 1fr 100px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 15px;
     padding: 15px 20px;
     font-weight: 600;
@@ -264,7 +255,7 @@ const employeeListStyles = css`
 
   .table-row {
     display: grid;
-    grid-template-columns: 60px 2fr 1.5fr 1fr 1fr 100px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
     gap: 15px;
     padding: 15px 20px;
     border-bottom: 1px solid #f0f0f0;
@@ -280,19 +271,6 @@ const employeeListStyles = css`
     border-bottom: none;
   }
 
-  .table-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #ff6200, #ff8533);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-  }
-
   .table-actions {
     display: flex;
     gap: 5px;
@@ -300,30 +278,20 @@ const employeeListStyles = css`
 
   .table-action-btn {
     padding: 4px 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    background: white;
+    background: none;
     cursor: pointer;
-    font-size: 11px;
     transition: all 0.2s;
-  }
-
-  .table-action-btn.edit {
-    border-color: #007bff;
-    color: #007bff;
+    border: none;
   }
 
   .table-action-btn.edit:hover {
+    border-radius: 4px;
     background: #007bff;
     color: white;
   }
 
-  .table-action-btn.delete {
-    border-color: #dc3545;
-    color: #dc3545;
-  }
-
   .table-action-btn.delete:hover {
+    border-radius: 4px;
     background: #dc3545;
     color: white;
   }
@@ -458,7 +426,7 @@ export class EmployeeList extends LitElement {
     // Initialize pagination and view state
     this.currentPage = 1;
     this.itemsPerPage = 10;
-    this.viewMode = 'list'; // 'list' or 'table'
+    this.viewMode = 'table'; // 'list' or 'table'
     
     // Initialize "hooks"
     this.filters = useEmployeeFilters();
@@ -644,15 +612,6 @@ export class EmployeeList extends LitElement {
     }
   }
 
-  // Helper method to get employee initials
-  getEmployeeInitials = (name) => {
-    return name
-      .split(' ')
-      .map(part => part.charAt(0))
-      .join('')
-      .toUpperCase();
-  }
-
   // Pagination utility functions
   getPaginatedEmployees = (employees) => {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -683,10 +642,8 @@ export class EmployeeList extends LitElement {
 
     return html`
       <div class="header">
-        <h1 class="title">Employee Management</h1>
-      </div>
+        <h1 class="title">${i18n.t('listTitle')}</h1>
 
-      <div class="filters">
         <input
           type="text"
           class="filter-input"
@@ -694,40 +651,22 @@ export class EmployeeList extends LitElement {
           .value=${this.searchTerm}
           @input=${this.handleSearchChange}
         />
-        
-        <select
-          class="filter-select"
-          .value=${this.departmentFilter}
-          @change=${this.handleDepartmentChange}
-        >
-          <option value="">${i18n.t('allDepartments')}</option>
-          ${this.departments.map(dept => html`
-            <option value=${dept.value}>${dept.label}</option>
-          `)}
-        </select>
 
-        <button
-          class="add-button"
-          @click=${this.handleAddEmployee}
-        >
-          + ${i18n.t('addEmployee')}
-        </button>
-      </div>
-
-      <!-- View Toggle -->
-      <div class="view-toggle">
-        <button
-          class="view-toggle-button ${this.viewMode === 'list' ? 'active' : ''}"
-          @click=${() => this.handleViewModeChange('list')}
-        >
-          📋 ${i18n.t('listView')}
-        </button>
-        <button
-          class="view-toggle-button ${this.viewMode === 'table' ? 'active' : ''}"
-          @click=${() => this.handleViewModeChange('table')}
-        >
-          📊 ${i18n.t('tableView')}
-        </button>
+        <!-- View Toggle -->
+        <div class="view-toggle">
+          <button
+            class="view-toggle-button ${this.viewMode === 'table' ? 'active' : ''}"
+            @click=${() => this.handleViewModeChange('table')}
+          >
+            <img class="view-icon" src="./src/table.svg" alt="Table View">
+          </button>
+          <button
+            class="view-toggle-button ${this.viewMode === 'list' ? 'active' : ''}"
+            @click=${() => this.handleViewModeChange('list')}
+          >
+            <img class="view-icon" src="./src/list.svg" alt="list View">
+          </button>
+        </div>
       </div>
 
       ${paginatedEmployees.length > 0 ? html`
@@ -749,11 +688,8 @@ export class EmployeeList extends LitElement {
       <div class="employee-grid">
         ${employees.map(employee => html`
           <div class="employee-card">
-            <div class="employee-avatar">
-              ${this.getEmployeeInitials(employee.name)}
-            </div>
-            
             <div class="employee-name">${employee.name}</div>
+           
             <div class="employee-position">${employee.position}</div>
             
             <div class="employee-details">
@@ -773,12 +709,14 @@ export class EmployeeList extends LitElement {
                 class="action-button edit"
                 @click=${() => this.handleEditEmployee(employee)}
               >
+                <img class="action-icon" src="./src/edit.svg" alt="Edit">
                 ${i18n.t('editButton')}
               </button>
               <button
                 class="action-button delete"
                 @click=${() => this.handleDeleteEmployee(employee)}
               >
+                <img class="action-icon" src="./src/delete.svg" alt="Delete">
                 ${i18n.t('deleteButton')}
               </button>
             </div>
@@ -801,9 +739,6 @@ export class EmployeeList extends LitElement {
         </div>
         ${employees.map(employee => html`
           <div class="table-row">
-            <div class="table-avatar">
-              ${this.getEmployeeInitials(employee.name)}
-            </div>
             <div>
               <div style="font-weight: 600;">${employee.name}</div>
               <div style="font-size: 13px; color: #666;">${employee.position}</div>
@@ -815,13 +750,13 @@ export class EmployeeList extends LitElement {
                 class="table-action-btn edit"
                 @click=${() => this.handleEditEmployee(employee)}
               >
-                ${i18n.t('editButton')}
+                <img class="action-icon" src="./src/edit.svg" alt="Edit">
               </button>
               <button
                 class="table-action-btn delete"
                 @click=${() => this.handleDeleteEmployee(employee)}
               >
-                ${i18n.t('deleteButton')}
+                <img class="action-icon" src="./src/delete.svg" alt="Delete">
               </button>
             </div>
           </div>

@@ -75,7 +75,8 @@ const appStyles = css`
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 50px;
+    background: white;
   }
 
   .logo-and-title {
@@ -87,13 +88,18 @@ const appStyles = css`
 
   .app-logo {
     height: 20px;
+    border-radius: 4px;
   }
 
   .app-title {
     font-size: 1rem;
     font-weight: 700;
     margin-left: 20px;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .language-selector {
+    display: flex;
+    align-items: center;
   }
 
   .language-flag {
@@ -101,27 +107,27 @@ const appStyles = css`
     height: 16px;
   }
 
-  .language-btn {
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    background: rgba(255, 255, 255, 0.1);
-    color: white;
-    border-radius: 6px;
+  .header-buttons {
+    display: flex;
+    gap: 40px;
+  }
+
+  .employees-button, .add-new-button {
     cursor: pointer;
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    color: #ff6200;
+    background: none;
+    border: none;
+    gap: 6px;
   }
 
-  .language-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: rgba(255, 255, 255, 0.5);
+  .employees-button.active, .add-new-button.active {
+    opacity: 0.2;
   }
 
-  .language-btn.active {
-    background: rgba(255, 255, 255, 0.3);
-    border-color: rgba(255, 255, 255, 0.8);
-    font-weight: 600;
+  .icon {
+    max-height: 16px;
   }
 
   .stat-card {
@@ -148,10 +154,9 @@ const appStyles = css`
   }
 
   .main-content {
-    max-width: 1200px;
     margin: 0 auto;
-    background-color: lightgray;
-    margin-top: 60px; /* push down content so it doesn't overlap header */
+    background-color: #f6ecec;
+    margin-top: 50px; /* push down content so it doesn't overlap header */
   }
 
   @media (max-width: 768px) {
@@ -312,8 +317,18 @@ export class EmployeeApp extends LitElement {
             <img class="app-logo" src="./src/logo.png" alt="App Logo">
             <h1 class="app-title">ING</h1>
           </div>
-          <div class="language-selector"> 
-            ${this.currentLanguage === 'en' ? this.renderEnglishFlag() : this.renderTurkishFlag()  }
+          <div class="header-buttons">
+            <button class="employees-button ${this.showForm === true ? 'active' : ''}"  @click=${() => this.handleFormClosed()} >
+              <img src='./src/employees.svg' alt="Employees"  class="icon"/>
+              <p>${i18n.t('employees')}</p>
+            </button>
+            <button class="add-new-button ${this.showForm === false ? 'active' : ''}"  @click=${() => this.handleAddEmployee()}>
+              <img src='./src/plus.svg' alt="Add Employee" class="icon"/>
+              <p>${i18n.t('addNew')}</p>
+            </button>
+            <div class="language-selector"> 
+              ${this.currentLanguage === 'en' ? this.renderEnglishFlag() : this.renderTurkishFlag()  }
+            </div>
           </div>
         </header>
 
@@ -323,6 +338,8 @@ export class EmployeeApp extends LitElement {
             @add-employee=${this.handleAddEmployee}
             @edit-employee=${this.handleEditEmployee}
             @employee-deleted=${this.handleEmployeeDeleted}
+            @renderListView=${this.renderListView}
+            @renderTableView=${this.renderTableView}
           ></employee-list>
         </main>
 

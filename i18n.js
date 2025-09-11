@@ -6,7 +6,12 @@
 // Language definitions
 const languages = {
   en: {
+    // Header
+    employees: 'Employees',
+    addNew: "Add New",
+
     // Employee List
+    listTitle: 'Employee List',
     searchPlaceholder: 'Search employees...',
     allDepartments: 'All Departments',
     addEmployee: 'Add Employee',
@@ -76,11 +81,7 @@ const languages = {
     of: 'of',
     previous: 'Previous',
     next: 'Next',
-    
-    // View Toggle
-    listView: 'List View',
-    tableView: 'Table View',
-    
+        
     // Demo Page
     demoTitle: 'Employee Management System',
     demoSubtitle: 'Component Demo & Documentation',
@@ -96,7 +97,12 @@ const languages = {
   },
   
   tr: {
+    // Header
+    employees: 'Çalışanlar',
+    addNew: "Yeni Ekle",
+
     // Employee List
+    listTitle: 'Çalışan Listesi',
     searchPlaceholder: 'Çalışan ara...',
     allDepartments: 'Tüm Departmanlar',
     addEmployee: 'Çalışan Ekle',
@@ -165,11 +171,7 @@ const languages = {
     of: '/',
     previous: 'Önceki',
     next: 'Sonraki',
-    
-    // View Toggle
-    listView: 'Liste Görünümü',
-    tableView: 'Tablo Görünümü',
-    
+        
     // Demo Page
     demoTitle: 'Çalışan Yönetim Sistemi',
     demoSubtitle: 'Bileşen Demosu & Dokümantasyon',
