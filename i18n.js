@@ -33,6 +33,7 @@ const languages = {
     birthDate: 'Date of Birth',
     actions: "Actions",
     selectDepartment: 'Select Department',
+    selectPosition: 'Select Position',
     cancel: 'Cancel',
     save: 'Save',
 
@@ -64,13 +65,14 @@ const languages = {
     confirmDelete: 'Are you sure you want to delete {name}?',
     
     // Departments
-    engineering: 'Engineering',
-    design: 'Design',
-    product: 'Product',
-    marketing: 'Marketing',
-    sales: 'Sales',
-    hr: 'HR',
-    
+    tech: 'Tech',
+    analytics: 'Analytics',
+
+    // Positions
+    junior: 'Junior',
+    mid: 'Mid',
+    senior: 'Senior',
+
     // Employee Details
     departmentLabel: 'Department:',
     emailLabel: 'Email:',
@@ -121,6 +123,7 @@ const languages = {
     startDate: 'İşe Başlama Tarihi',
     actions: "İşlemler",
     selectDepartment: 'Departman Seçin',
+    selectPosition: 'Pozisyon Seçin',
     cancel: 'İptal',
     save: 'Kaydet',
     
@@ -152,12 +155,13 @@ const languages = {
     confirmDelete: '{name} adlı çalışanı silmek istediğinizden emin misiniz?',
     
     // Departments
-    engineering: 'Mühendislik',
-    design: 'Tasarım',
-    product: 'Ürün',
-    marketing: 'Pazarlama',
-    sales: 'Satış',
-    hr: 'İnsan Kaynakları',
+    tech: 'Teknoloji',
+    analytics: 'Analitik',
+
+    // Positions
+    junior: 'Junior',
+    mid: 'Mid',
+    senior: 'Senior',
     
     // Employee Details
     departmentLabel: 'Departman:',
@@ -264,12 +268,17 @@ class LocalizationManager {
   // Get localized department list
   getDepartments() {
     return [
-      { key: 'engineering', value: 'Engineering', label: this.t('engineering') },
-      { key: 'design', value: 'Design', label: this.t('design') },
-      { key: 'product', value: 'Product', label: this.t('product') },
-      { key: 'marketing', value: 'Marketing', label: this.t('marketing') },
-      { key: 'sales', value: 'Sales', label: this.t('sales') },
-      { key: 'hr', value: 'HR', label: this.t('hr') }
+      { key: 'tech', value: 'Tech', label: this.t('tech') },
+      { key: 'analytics', value: 'Analytics', label: this.t('analytics') }
+    ];
+  }
+
+  // Get localized position list
+  getPositions() {
+    return [
+      { key: 'junior', value: 'Junior', label: this.t('junior') },
+      { key: 'mid', value: 'Mid', label: this.t('mid') },
+      { key: 'senior', value: 'Senior', label: this.t('senior') }
     ];
   }
 

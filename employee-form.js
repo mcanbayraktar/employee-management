@@ -257,6 +257,7 @@ export class EmployeeForm extends LitElement {
     this.employee = null;
     this.isEdit = false;
     this.departments = i18n.getDepartments();
+    this.positions = i18n.getPositions();
     this.formData = this.getInitialFormData();
     this.errors = {};
     this.currentLanguage = i18n.getLanguage();
@@ -268,6 +269,7 @@ export class EmployeeForm extends LitElement {
     this.languageChangeHandler = (newLanguage) => {
       this.currentLanguage = newLanguage;
       this.departments = i18n.getDepartments();
+      this.positions = i18n.getPositions();
       this.requestUpdate();
     };
     i18n.addListener(this.languageChangeHandler);
@@ -484,29 +486,33 @@ export class EmployeeForm extends LitElement {
                   .value=${this.formData.department}
                   @change=${this.handleInputChange('department')}
                   >
-                  <option value="">${i18n.t('selectDepartment')}</option>
-                  ${this.departments.map(dept => html`
-                    <option value=${dept.value}>${dept.label}</option>
-                    `)}
+                    <option value="">${i18n.t('selectDepartment')}</option>
+                    ${this.departments.map(dept => html`
+                      <option value=${dept.value}>${dept.label}</option>
+                      `)}
                   </select>
                   ${this.errors.department ? html`
                     <div class="error-message">${this.errors.department}</div>
                     ` : ''}
-                  </div>
+                </div>
 
-                  <div class="form-group">
-                    <label class="form-label">${i18n.t('position')} *</label>
-                    <input
-                      type="text"
-                      class="form-input ${this.errors.position ? 'error' : ''}"
-                      .value=${this.formData.position}
-                      @input=${this.handleInputChange('position')}
-                      placeholder=${i18n.t('enterPosition')}
-                    />
-                    ${this.errors.position ? html`
-                      <div class="error-message">${this.errors.position}</div>
-                    ` : ''}
-                  </div>
+                <div class="form-group">
+                  <label class="form-label">${i18n.t('position')} *</label>
+                  <select
+                    class="form-select ${this.errors.position ? 'error' : ''}"
+                    .value=${this.formData.position}
+                    @change=${this.handleInputChange('position')}
+                  >
+                    <option value="">${i18n.t('selectPosition')}</option>
+                    ${this.positions.map(pos => html`
+                      <option value=${pos.value}>${pos.label}</option>
+                      `)}
+                  </select>
+
+                  ${this.errors.position ? html`
+                    <div class="error-message">${this.errors.position}</div>
+                  ` : ''}
+                </div>
 
               </div>
 

@@ -220,8 +220,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1992-03-15',
         phone: '+90 532 123 4567',
         email: 'ahmet.yilmaz@company.com',
-        department: 'Engineering',
-        position: 'Senior Frontend Developer'
+        department: 'Analytics',
+        position: 'Junior'
       },
       {
         id: 2,
@@ -231,8 +231,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1982-01-10',
         phone: '+90 535 987 6543',
         email: 'elif.kaya@company.com',
-        department: 'Design',
-        position: 'UX Designer'
+        department: 'Tech',
+        position: 'Mid'
       },
       {
         id: 3,
@@ -242,8 +242,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1990-11-20',
         phone: '+90 533 456 7890',
         email: 'mehmet.demir@company.com',
-        department: 'Product',
-        position: 'Product Manager'
+        department: 'Analytics',
+        position: 'Senior'
       },
       {
         id: 4,
@@ -253,8 +253,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1995-06-01',
         phone: '+90 534 789 0123',
         email: 'ayse.ozkan@company.com',
-        department: 'Marketing',
-        position: 'Marketing Specialist',
+        department: 'Tech',
+        position: 'Junior',
       },
       {
         id: 5,
@@ -264,8 +264,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1990-09-12',
         phone: '+90 536 234 5678',
         email: 'can.turk@company.com',
-        department: 'Engineering',
-        position: 'Backend Developer',
+        department: 'Analytics',
+        position: 'Mid',
       },
       {
         id: 6,
@@ -275,8 +275,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1995-02-28',
         phone: '+90 537 345 6789',
         email: 'zeynep.sahin@company.com',
-        department: 'Sales',
-        position: 'Sales Manager',
+        department: 'Tech',
+        position: 'Senior',
       },
       {
         id: 7,
@@ -286,8 +286,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1995-07-18',
         phone: '+90 538 456 7890',
         email: 'emre.koc@company.com',
-        department: 'Engineering',
-        position: 'DevOps Engineer',
+        department: 'Analytics',
+        position: 'Junior',
       },
       {
         id: 8,
@@ -297,8 +297,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1995-04-15',
         phone: '+90 539 567 8901',
         email: 'selin.arslan@company.com',
-        department: 'HR',
-        position: 'HR Specialist',
+        department: 'Tech',
+        position: 'Mid',
       },
       {
         id: 9,
@@ -308,8 +308,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1995-12-05',
         phone: '+90 531 678 9012',
         email: 'burak.celik@company.com',
-        department: 'Design',
-        position: 'UI Designer',
+        department: 'Analytics',
+        position: 'Senior',
       },
       {
         id: 10,
@@ -319,8 +319,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1993-03-22',
         phone: '+90 532 789 0123',
         email: 'fatma.yildiz@company.com',
-        department: 'Product',
-        position: 'Data Analyst',
+        department: 'Tech',
+        position: 'Junior',
       },
       {
         id: 11,
@@ -330,8 +330,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1990-11-08',
         phone: '+90 533 890 1234',
         email: 'murat.aydin@company.com',
-        department: 'Engineering',
-        position: 'QA Engineer',
+        department: 'Analytics',
+        position: 'Mid',
       },
       {
         id: 12,
@@ -341,8 +341,8 @@ export class EmployeeApp extends LitElement {
         birthDate: '1995-05-10',
         phone: '+90 534 901 2345',
         email: 'deniz.polat@company.com',
-        department: 'Marketing',
-        position: 'Content Marketing Manager',
+        department: 'Tech',
+        position: 'Senior',
       }
     ];
   }
