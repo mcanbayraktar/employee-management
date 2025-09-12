@@ -183,7 +183,7 @@ const employeeFormStyles = css`
   .form-actions {
     display: flex;
     gap: 12px;
-    justify-content: flex-end;
+    justify-content: center;
     padding-top: 24px;
     border-top: 1px solid #eee;
   }
@@ -196,12 +196,13 @@ const employeeFormStyles = css`
     border: none;
     transition: all 0.2s;
     font-size: 14px;
+    width: 100px;
   }
 
   .action-button.cancel {
-    background: #f8f9fa;
-    color: #666;
-    border: 1px solid #ddd;
+    background: white;
+    color: #525194;
+    border: 1px solid #525194;
   }
 
   .action-button.cancel:hover {
@@ -229,10 +230,6 @@ const employeeFormStyles = css`
     
     .form-grid {
       grid-template-columns: 1fr;
-    }
-    
-    .form-actions {
-      flex-direction: column;
     }
   }
 `;
@@ -515,17 +512,17 @@ export class EmployeeForm extends LitElement {
 
               <div class="form-actions">
                 <button
+                  type="submit"
+                  class="action-button submit"
+                >
+                  ${i18n.t('save')}
+                </button>
+                <button
                   type="button"
                   class="action-button cancel"
                   @click=${this.handleClose}
                 >
                   ${i18n.t('cancel')}
-                </button>
-                <button
-                  type="submit"
-                  class="action-button submit"
-                >
-                  ${this.isEdit ? i18n.t('updateEmployee') : i18n.t('addEmployee')}
                 </button>
               </div>
             </form>

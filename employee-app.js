@@ -77,6 +77,7 @@ const appStyles = css`
     right: 0;
     height: 50px;
     background: white;
+    z-index: 1000;
   }
 
   .logo-and-title {

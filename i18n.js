@@ -34,8 +34,8 @@ const languages = {
     actions: "Actions",
     selectDepartment: 'Select Department',
     cancel: 'Cancel',
-    updateEmployee: 'Update Employee',
-    
+    save: 'Save',
+
     // Validation Messages
     firstNameRequired: 'First Name is required',
     lastNameRequired: 'Last Name is required',
@@ -122,7 +122,7 @@ const languages = {
     actions: "İşlemler",
     selectDepartment: 'Departman Seçin',
     cancel: 'İptal',
-    updateEmployee: 'Çalışanı Güncelle',
+    save: 'Kaydet',
     
     // Validation Messages
     firstNameRequired: 'Ad gereklidir',

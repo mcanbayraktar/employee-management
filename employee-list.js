@@ -107,10 +107,13 @@ const employeeListStyles = css`
 
   .employee-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    justify-content: center;
+    align-items: start;
+    grid-template-columns: repeat(auto-fill, 500px);
     column-gap: 150px;
     row-gap: 50px;
     height: 580px;
+    overflow-y: auto;
   }
 
   .employee-card {
@@ -123,6 +126,9 @@ const employeeListStyles = css`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(4, 1fr);
+    box-sizing: border-box; 
+    max-width: 100%;
+    word-wrap: break-word;
   }
 
   .employee-card:hover {
@@ -159,6 +165,7 @@ const employeeListStyles = css`
     font-size: 12px;
     font-weight: 400;
     transition: all 0.2s;
+    gap: 6px;
   }
 
   .action-button.edit {
@@ -293,11 +300,9 @@ const employeeListStyles = css`
 
   /* Pagination Styles */
   .pagination-container {
+    margin-top: 10px;
     display: flex;
     justify-content: center;
-    margin-top: 10px;
-    padding: 10px 0;
-    border-top: 1px solid #eee;
   }
 
   .pagination-info {
@@ -306,19 +311,6 @@ const employeeListStyles = css`
     gap: 15px;
     font-size: 14px;
     color: #666;
-  }
-
-  .items-per-page {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .items-per-page select {
-    padding: 5px 8px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 14px;
   }
 
   .pagination-controls {
@@ -354,19 +346,16 @@ const employeeListStyles = css`
     border-color: #ff6200;
     border-radius: 50%;
   }
-
-  .pagination-text {
-    font-size: 14px;
-    color: #666;
-  }
-
+  
   @media (max-width: 768px) {
     .filters {
       grid-template-columns: 1fr;
     }
     
     .employee-grid {
+      max-height: 60vh;
       grid-template-columns: 1fr;
+      overflow-y: auto;
     }
 
     .table-header,
@@ -495,12 +484,6 @@ export class EmployeeList extends LitElement {
     return Math.ceil(totalItems / this.itemsPerPage);
   }
 
-  getPaginationInfo = (totalItems) => {
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage + 1;
-    const endIndex = Math.min(this.currentPage * this.itemsPerPage, totalItems);
-    return { startIndex, endIndex, totalItems };
-  }
-
   // Pure render method (like React functional components)
   render() {
     const filteredEmployees = this.filters.applyFilters(this.employees, {
@@ -510,7 +493,6 @@ export class EmployeeList extends LitElement {
 
     const paginatedEmployees = this.getPaginatedEmployees(filteredEmployees);
     const totalPages = this.getTotalPages(filteredEmployees.length);
-    const paginationInfo = this.getPaginationInfo(filteredEmployees.length);
 
     return html`
       <div class="header">
@@ -545,7 +527,7 @@ export class EmployeeList extends LitElement {
 
       ${paginatedEmployees.length > 0 ? html`
         ${this.viewMode === 'list' ? this.renderListView(paginatedEmployees) : this.renderTableView(paginatedEmployees)}
-        ${this.renderPagination(filteredEmployees.length, totalPages, paginationInfo)}
+        ${this.renderPagination(filteredEmployees.length, totalPages)}
       ` : html`
         <div class="empty-state">
           <div class="empty-state-icon">👥</div>
@@ -675,7 +657,7 @@ export class EmployeeList extends LitElement {
   }
 
   // Render pagination controls
-  renderPagination(totalItems, totalPages, paginationInfo) {
+  renderPagination(totalItems, totalPages) {
     if (totalItems <= this.itemsPerPage) {
       return html``;
     }
@@ -686,20 +668,7 @@ export class EmployeeList extends LitElement {
     }
 
     return html`
-      <div class="pagination-container">
-        <!-- <div class="pagination-info">
-          <div class="items-per-page">
-            <span>${i18n.t('itemsPerPage')}</span>
-          </div>
-          <span class="pagination-text">
-            ${i18n.t('showingItems', { 
-              start: paginationInfo.startIndex, 
-              end: paginationInfo.endIndex, 
-              total: totalItems 
-            })}
-          </span>
-        </div> -->
-        
+      <div class="pagination-container">        
         <div class="pagination-controls">
           <button
             class="pagination-button"
