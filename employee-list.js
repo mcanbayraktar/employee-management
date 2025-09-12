@@ -39,16 +39,16 @@ const employeeListStyles = css`
   :host {
     display: block;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    max-width: 1300px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
   }
 
   .header {
-    display: grid;
+    display: flex;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 30px;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
   }
 
@@ -107,10 +107,10 @@ const employeeListStyles = css`
 
   .employee-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 20px;
-    height: 550px;
-    overflow-y: auto;
+    grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+    column-gap: 150px;
+    row-gap: 50px;
+    height: 580px;
   }
 
   .employee-card {
@@ -120,6 +120,9 @@ const employeeListStyles = css`
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s, box-shadow 0.2s;
     border: 1px solid #eee;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, 1fr);
   }
 
   .employee-card:hover {
@@ -127,32 +130,17 @@ const employeeListStyles = css`
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   }
 
-  .employee-name {
-    font-size: 18px;
-    color: #333;
-    margin-bottom: 5px;
-  }
-
-  .employee-position {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-
-  .employee-details {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8px;
-    margin-bottom: 15px;
-    font-size: 13px;
+  .employee-info {
+    display: flex;
+    flex-direction: column;
   }
 
   .detail-label {
-    color: #888;
+    font-size: 10px;
+    color: #ACA7A7;
   }
 
   .detail-value {
-    color: #333;
     font-weight: 500;
   }
 
@@ -247,7 +235,7 @@ const employeeListStyles = css`
     overflow: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #eee;
-    height: 550px;
+    height: 580px;
   }
 
   .table-header {
@@ -306,10 +294,9 @@ const employeeListStyles = css`
   /* Pagination Styles */
   .pagination-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 20px;
-    padding: 15px 0;
+    justify-content: center;
+    margin-top: 10px;
+    padding: 10px 0;
     border-top: 1px solid #eee;
   }
 
@@ -417,7 +404,6 @@ export class EmployeeList extends LitElement {
     departments: { type: Array },
     currentLanguage: { type: String, state: true },
     currentPage: { type: Number, state: true },
-    itemsPerPage: { type: Number, state: true },
     viewMode: { type: String, state: true } // 'list' or 'table'
   };
 
@@ -432,9 +418,9 @@ export class EmployeeList extends LitElement {
     
     // Initialize pagination and view state
     this.currentPage = 1;
-    this.itemsPerPage = 10;
     this.viewMode = 'table'; // 'list' or 'table'
-    
+    this.itemsPerPage = 9;
+
     // Initialize "hooks"
     this.filters = useEmployeeFilters();
     
@@ -468,13 +454,9 @@ export class EmployeeList extends LitElement {
     this.currentPage = newPage;
   }
 
-  handleItemsPerPageChange = (event) => {
-    this.itemsPerPage = parseInt(event.target.value);
-    this.currentPage = 1; // Reset to first page
-  }
-
   handleViewModeChange = (mode) => {
     this.viewMode = mode;
+    this.itemsPerPage = this.viewMode === 'table' ? 9 : 4;
   }
 
   handleAddEmployee = () => {
@@ -534,10 +516,6 @@ export class EmployeeList extends LitElement {
       <div class="header">
         <h1 class="title">${i18n.t('listTitle')}</h1>
 
-        <div></div>
-        
-        <div></div>
-
         <div class="header-actions">
           <input
           type="text"
@@ -584,24 +562,48 @@ export class EmployeeList extends LitElement {
       <div class="employee-grid">
         ${employees.map(employee => html`
           <div class="employee-card">
-            <div class="employee-name">${employee.firstName}</div>
 
-            <div class="employee-last-name">${employee.lastName}</div>
-            
-            <div class="employee-position">${employee.position}</div>
-            
-            <div class="employee-details">
-              <span class="detail-label">${i18n.t('departmentLabel')}</span>
-              <span class="detail-value">${i18n.getDepartments().find(d => d.value === employee.department)?.label || employee.department}</span>
-              
-              <span class="detail-label">${i18n.t('emailLabel')}</span>
-              <span class="detail-value">${employee.email}</span>
-              
-              
-              <span class="detail-label">${i18n.t('startDateLabel')}</span>
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('firstName')}</span>
+              <div class="employee-name">${employee.firstName}</div>
+            </div>
+
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('lastName')}</span>
+              <div class="employee-last-name">${employee.lastName}</div>
+            </div>
+
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('startDate')}</span>
               <span class="detail-value">${formatDate(employee.startDate)}</span>
             </div>
-            
+
+
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('birthDate')}</span>
+              <span class="detail-value">${formatDate(employee.birthDate)}</span>
+            </div>
+
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('phone')}</span>
+              <span class="detail-value">${employee.phone}</span>
+            </div>
+
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('email')}</span>
+              <span class="detail-value">${employee.email}</span>
+            </div>
+
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('department')}</span>
+              <span class="detail-value">${i18n.getDepartments().find(d => d.value === employee.department)?.label || employee.department}</span>
+            </div>
+
+            <div class="employee-info">
+              <span class="detail-label">${i18n.t('position')}</span>
+              <span class="detail-value">${employee.position}</span>
+            </div>
+
             <div class="employee-actions">
               <button
                 class="action-button edit"
@@ -618,6 +620,9 @@ export class EmployeeList extends LitElement {
                 ${i18n.t('deleteButton')}
               </button>
             </div>
+
+          </div>
+            
           </div>
         `)}
       </div>
@@ -682,15 +687,9 @@ export class EmployeeList extends LitElement {
 
     return html`
       <div class="pagination-container">
-        <div class="pagination-info">
+        <!-- <div class="pagination-info">
           <div class="items-per-page">
             <span>${i18n.t('itemsPerPage')}</span>
-            <select @change=${this.handleItemsPerPageChange} .value=${String(this.itemsPerPage)}>
-              <option value="5">5</option>
-              <option value="10">10</option>
-              <option value="20">20</option>
-              <option value="50">50</option>
-            </select>
           </div>
           <span class="pagination-text">
             ${i18n.t('showingItems', { 
@@ -699,7 +698,7 @@ export class EmployeeList extends LitElement {
               total: totalItems 
             })}
           </span>
-        </div>
+        </div> -->
         
         <div class="pagination-controls">
           <button

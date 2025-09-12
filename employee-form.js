@@ -26,20 +26,24 @@ const useFormValidation = () => {
   return {
     validateField: (field, value) => {
       switch (field) {
-        case 'name':
-          return validateRequired(value) ? null : i18n.t('nameRequired');
-        case 'email':
-          if (!validateRequired(value)) return i18n.t('emailRequired');
-          return validateEmail(value) ? null : i18n.t('emailInvalid');
-        case 'position':
-          return validateRequired(value) ? null : i18n.t('positionRequired');
-        case 'department':
-          return validateRequired(value) ? null : i18n.t('departmentRequired');
+        case 'firstName':
+          return validateRequired(value) ? null : i18n.t('firstNameRequired');
+        case 'lastName':
+          return validateRequired(value) ? null : i18n.t('lastNameRequired');
+        case 'startDate':
+          return validateRequired(value) ? null : i18n.t('startDateRequired');
+        case 'birthDate':
+          return validateRequired(value) ? null : i18n.t('birthDateRequired');
         case 'phone':
           if (!validateRequired(value)) return i18n.t('phoneRequired');
           return validatePhone(value) ? null : i18n.t('phoneInvalid');
-        case 'startDate':
-          return validateRequired(value) ? null : i18n.t('startDateRequired');
+        case 'email':
+          if (!validateRequired(value)) return i18n.t('emailRequired');
+          return validateEmail(value) ? null : i18n.t('emailInvalid');
+        case 'department':
+          return validateRequired(value) ? null : i18n.t('departmentRequired');
+        case 'position':
+          return validateRequired(value) ? null : i18n.t('positionRequired');
         default:
           return null;
       }
@@ -90,7 +94,7 @@ const employeeFormStyles = css`
   .modal-header {
     padding: 24px 24px 0;
     border-bottom: 1px solid #eee;
-    margin-bottom: 24px;
+    margin-bottom: 12px;
   }
 
   .modal-title {
@@ -125,6 +129,10 @@ const employeeFormStyles = css`
     padding: 0 24px 24px;
   }
 
+  .editing-info {
+    font-size: 10px;
+  }
+
   .form-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -135,10 +143,6 @@ const employeeFormStyles = css`
   .form-group {
     display: flex;
     flex-direction: column;
-  }
-
-  .form-group.full-width {
-    grid-column: 1 / -1;
   }
 
   .form-label {
@@ -280,12 +284,14 @@ export class EmployeeForm extends LitElement {
 
   // Pure helper methods
   getInitialFormData = () => ({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     position: '',
     department: '',
     phone: '',
-    startDate: ''
+    startDate: '',
+    birthDate: ''
   });
 
   // Event handlers as arrow functions
@@ -352,12 +358,14 @@ export class EmployeeForm extends LitElement {
     
     if (employee) {
       this.formData = {
-        name: employee.name || '',
+        firstName: employee.firstName || '',
+        lastName: employee.lastName || '',
         email: employee.email || '',
         position: employee.position || '',
         department: employee.department || '',
         phone: employee.phone || '',
-        startDate: employee.startDate || ''
+        startDate: employee.startDate || '',
+        birthDate: employee.birthDate || ''
       };
     } else {
       this.formData = this.getInitialFormData();
@@ -384,64 +392,63 @@ export class EmployeeForm extends LitElement {
           </div>
           
           <div class="form-container">
+          ${this.isEdit ? html`
+            <p class="editing-info">You are editing ${this.formData.firstName} ${this.formData.lastName}</p>
+            ` : ''}
+
             <form @submit=${this.handleSubmit}>
               <div class="form-grid">
                 <div class="form-group">
-                  <label class="form-label">${i18n.t('fullName')} *</label>
+                  <label class="form-label">${i18n.t('firstName')} *</label>
                   <input
                     type="text"
-                    class="form-input ${this.errors.name ? 'error' : ''}"
-                    .value=${this.formData.name}
-                    @input=${this.handleInputChange('name')}
-                    placeholder=${i18n.t('enterFullName')}
+                    class="form-input ${this.errors.firstName ? 'error' : ''}"
+                    .value=${this.formData.firstName}
+                    @input=${this.handleInputChange('firstName')}
+                    placeholder=${i18n.t('enterFirstName')}
                   />
-                  ${this.errors.name ? html`
-                    <div class="error-message">${this.errors.name}</div>
+                  ${this.errors.firstName ? html`
+                    <div class="error-message">${this.errors.firstName}</div>
                   ` : ''}
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label">${i18n.t('emailAddress')} *</label>
-                  <input
-                    type="email"
-                    class="form-input ${this.errors.email ? 'error' : ''}"
-                    .value=${this.formData.email}
-                    @input=${this.handleInputChange('email')}
-                    placeholder=${i18n.t('enterEmail')}
-                  />
-                  ${this.errors.email ? html`
-                    <div class="error-message">${this.errors.email}</div>
-                  ` : ''}
-                </div>
-
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('position')} *</label>
+                  <label class="form-label">${i18n.t('lastName')} *</label>
                   <input
                     type="text"
-                    class="form-input ${this.errors.position ? 'error' : ''}"
-                    .value=${this.formData.position}
-                    @input=${this.handleInputChange('position')}
-                    placeholder=${i18n.t('enterPosition')}
+                    class="form-input ${this.errors.lastName ? 'error' : ''}"
+                    .value=${this.formData.lastName}
+                    @input=${this.handleInputChange('lastName')}
+                    placeholder=${i18n.t('enterLastName')}
                   />
-                  ${this.errors.position ? html`
-                    <div class="error-message">${this.errors.position}</div>
+                  ${this.errors.lastName ? html`
+                    <div class="error-message">${this.errors.lastName}</div>
                   ` : ''}
                 </div>
 
                 <div class="form-group">
-                  <label class="form-label">${i18n.t('department')} *</label>
-                  <select
-                    class="form-select ${this.errors.department ? 'error' : ''}"
-                    .value=${this.formData.department}
-                    @change=${this.handleInputChange('department')}
-                  >
-                    <option value="">${i18n.t('selectDepartment')}</option>
-                    ${this.departments.map(dept => html`
-                      <option value=${dept.value}>${dept.label}</option>
-                    `)}
-                  </select>
-                  ${this.errors.department ? html`
-                    <div class="error-message">${this.errors.department}</div>
+                  <label class="form-label">${i18n.t('startDate')} *</label>
+                  <input
+                    type="date"
+                    class="form-input ${this.errors.startDate ? 'error' : ''}"
+                    .value=${this.formData.startDate}
+                    @input=${this.handleInputChange('startDate')}
+                  />
+                  ${this.errors.startDate ? html`
+                    <div class="error-message">${this.errors.startDate}</div>
+                  ` : ''}
+                </div>
+
+                <div class="form-group">
+                  <label class="form-label">${i18n.t('birthDate')} *</label>
+                  <input
+                    type="date"
+                    class="form-input ${this.errors.birthDate ? 'error' : ''}"
+                    .value=${this.formData.birthDate}
+                    @input=${this.handleInputChange('birthDate')}
+                  />
+                  ${this.errors.birthDate ? html`
+                    <div class="error-message">${this.errors.birthDate}</div>
                   ` : ''}
                 </div>
 
@@ -459,18 +466,51 @@ export class EmployeeForm extends LitElement {
                   ` : ''}
                 </div>
 
-                <div class="form-group full-width">
-                  <label class="form-label">${i18n.t('startDate')} *</label>
+                <div class="form-group">
+                  <label class="form-label">${i18n.t('email')} *</label>
                   <input
-                    type="date"
-                    class="form-input ${this.errors.startDate ? 'error' : ''}"
-                    .value=${this.formData.startDate}
-                    @input=${this.handleInputChange('startDate')}
+                    type="email"
+                    class="form-input ${this.errors.email ? 'error' : ''}"
+                    .value=${this.formData.email}
+                    @input=${this.handleInputChange('email')}
+                    placeholder=${i18n.t('enterEmail')}
                   />
-                  ${this.errors.startDate ? html`
-                    <div class="error-message">${this.errors.startDate}</div>
+                  ${this.errors.email ? html`
+                    <div class="error-message">${this.errors.email}</div>
                   ` : ''}
                 </div>
+
+                <div class="form-group">
+                  <label class="form-label">${i18n.t('department')} *</label>
+                  <select
+                  class="form-select ${this.errors.department ? 'error' : ''}"
+                  .value=${this.formData.department}
+                  @change=${this.handleInputChange('department')}
+                  >
+                  <option value="">${i18n.t('selectDepartment')}</option>
+                  ${this.departments.map(dept => html`
+                    <option value=${dept.value}>${dept.label}</option>
+                    `)}
+                  </select>
+                  ${this.errors.department ? html`
+                    <div class="error-message">${this.errors.department}</div>
+                    ` : ''}
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">${i18n.t('position')} *</label>
+                    <input
+                      type="text"
+                      class="form-input ${this.errors.position ? 'error' : ''}"
+                      .value=${this.formData.position}
+                      @input=${this.handleInputChange('position')}
+                      placeholder=${i18n.t('enterPosition')}
+                    />
+                    ${this.errors.position ? html`
+                      <div class="error-message">${this.errors.position}</div>
+                    ` : ''}
+                  </div>
+
               </div>
 
               <div class="form-actions">

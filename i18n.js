@@ -37,7 +37,8 @@ const languages = {
     updateEmployee: 'Update Employee',
     
     // Validation Messages
-    nameRequired: 'Name is required',
+    firstNameRequired: 'First Name is required',
+    lastNameRequired: 'Last Name is required',
     emailRequired: 'Email is required',
     emailInvalid: 'Please enter a valid email address',
     positionRequired: 'Position is required',
@@ -45,7 +46,8 @@ const languages = {
     phoneRequired: 'Phone is required',
     phoneInvalid: 'Please enter a valid phone number',
     startDateRequired: 'Start date is required',
-    
+    birthDateRequired: 'Birth date is required',
+
     // Form Placeholders
     enterFirstName: 'Enter first name',
     enterLastName: 'Enter last name',
@@ -131,7 +133,8 @@ const languages = {
     updateEmployee: 'Çalışanı Güncelle',
     
     // Validation Messages
-    nameRequired: 'Ad soyad gereklidir',
+    firstNameRequired: 'Ad gereklidir',
+    lastNameRequired: 'Soyad gereklidir',
     emailRequired: 'E-posta gereklidir',
     emailInvalid: 'Lütfen geçerli bir e-posta adresi girin',
     positionRequired: 'Pozisyon gereklidir',
@@ -139,6 +142,7 @@ const languages = {
     phoneRequired: 'Telefon gereklidir',
     phoneInvalid: 'Lütfen geçerli bir telefon numarası girin',
     startDateRequired: 'İşe başlama tarihi gereklidir',
+    birthDateRequired: 'Doğum tarihi gereklidir',
     
     // Form Placeholders
     enterFirstName: 'Ad girin',
