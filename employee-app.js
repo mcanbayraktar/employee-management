@@ -154,9 +154,9 @@ const appStyles = css`
   }
 
   .main-content {
-    margin: 0 auto;
     background-color: #f6ecec;
     margin-top: 50px; /* push down content so it doesn't overlap header */
+    min-height: 100vh;
   }
 
   @media (max-width: 768px) {
@@ -213,48 +213,135 @@ export class EmployeeApp extends LitElement {
     this.employees = [
       {
         id: 1,
-        name: 'Ahmet Yılmaz',
-        email: 'ahmet.yilmaz@company.com',
-        position: 'Senior Frontend Developer',
-        department: 'Engineering',
+        firstName: 'Ahmet',
+        lastName: 'Yılmaz',
         startDate: '2022-03-15',
-        phone: '+90 532 123 4567'
+        birthDate: '1992-03-15',
+        phone: '+90 532 123 4567',
+        email: 'ahmet.yilmaz@company.com',
+        department: 'Engineering',
+        position: 'Senior Frontend Developer'
       },
       {
         id: 2,
-        name: 'Elif Kaya',
-        email: 'elif.kaya@company.com',
-        position: 'UX Designer',
-        department: 'Design',
+        firstName: 'Elif',
+        lastName: 'Kaya',
         startDate: '2023-01-10',
-        phone: '+90 535 987 6543'
+        birthDate: '1982-01-10',
+        phone: '+90 535 987 6543',
+        email: 'elif.kaya@company.com',
+        department: 'Design',
+        position: 'UX Designer'
       },
       {
         id: 3,
-        name: 'Mehmet Demir',
-        email: 'mehmet.demir@company.com',
-        position: 'Product Manager',
-        department: 'Product',
+        firstName: 'Mehmet',
+        lastName: 'Demir',
         startDate: '2021-11-20',
-        phone: '+90 533 456 7890'
+        birthDate: '1990-11-20',
+        phone: '+90 533 456 7890',
+        email: 'mehmet.demir@company.com',
+        department: 'Product',
+        position: 'Product Manager'
       },
       {
         id: 4,
-        name: 'Ayşe Özkan',
-        email: 'ayse.ozkan@company.com',
-        position: 'Marketing Specialist',
-        department: 'Marketing',
+        firstName: 'Ayşe',
+        lastName: 'Özkan',
         startDate: '2023-06-01',
-        phone: '+90 534 789 0123'
+        birthDate: '1995-06-01',
+        phone: '+90 534 789 0123',
+        email: 'ayse.ozkan@company.com',
+        department: 'Marketing',
+        position: 'Marketing Specialist',
       },
       {
         id: 5,
-        name: 'Can Kılıç',
-        email: 'can.kilic@company.com',
-        position: 'DevOps Engineer',
-        department: 'Engineering',
+        firstName: 'Can',
+        lastName: 'Türk',
         startDate: '2022-09-12',
-        phone: '+90 536 111 2233'
+        birthDate: '1990-09-12',
+        phone: '+90 536 234 5678',
+        email: 'can.turk@company.com',
+        department: 'Engineering',
+        position: 'Backend Developer',
+      },
+      {
+        id: 6,
+        firstName: 'Zeynep',
+        lastName: 'Şahin',
+        startDate: '2023-02-28',
+        birthDate: '1995-02-28',
+        phone: '+90 537 345 6789',
+        email: 'zeynep.sahin@company.com',
+        department: 'Sales',
+        position: 'Sales Manager',
+      },
+      {
+        id: 7,
+        firstName: 'Emre',
+        lastName: 'Koç',
+        startDate: '2022-07-18',
+        birthDate: '1995-07-18',
+        phone: '+90 538 456 7890',
+        email: 'emre.koc@company.com',
+        department: 'Engineering',
+        position: 'DevOps Engineer',
+      },
+      {
+        id: 8,
+        firstName: 'Selin',
+        lastName: 'Arslan',
+        startDate: '2023-04-15',
+        birthDate: '1995-04-15',
+        phone: '+90 539 567 8901',
+        email: 'selin.arslan@company.com',
+        department: 'HR',
+        position: 'HR Specialist',
+      },
+      {
+        id: 9,
+        firstName: 'Burak',
+        lastName: 'Çelik',
+        startDate: '2022-12-05',
+        birthDate: '1995-12-05',
+        phone: '+90 531 678 9012',
+        email: 'burak.celik@company.com',
+        department: 'Design',
+        position: 'UI Designer',
+      },
+      {
+        id: 10,
+        firstName: 'Fatma',
+        lastName: 'Yıldız',
+        startDate: '2023-03-22',
+        birthDate: '1993-03-22',
+        phone: '+90 532 789 0123',
+        email: 'fatma.yildiz@company.com',
+        department: 'Product',
+        position: 'Data Analyst',
+      },
+      {
+        id: 11,
+        firstName: 'Murat',
+        lastName: 'Aydın',
+        startDate: '2022-11-08',
+        birthDate: '1990-11-08',
+        phone: '+90 533 890 1234',
+        email: 'murat.aydin@company.com',
+        department: 'Engineering',
+        position: 'QA Engineer',
+      },
+      {
+        id: 12,
+        firstName: 'Deniz',
+        lastName: 'Polat',
+        startDate: '2023-05-10',
+        birthDate: '1995-05-10',
+        phone: '+90 534 901 2345',
+        email: 'deniz.polat@company.com',
+        department: 'Marketing',
+        position: 'Content Marketing Manager',
       }
     ];
   }

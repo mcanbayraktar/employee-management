@@ -21,15 +21,17 @@ const languages = {
     deleteButton: 'Delete',
     
     // Employee Form
-    addNewEmployee: 'Add New Employee',
+    addNewEmployee: 'Add Employee',
     editEmployee: 'Edit Employee',
-    fullName: 'Full Name',
-    emailAddress: 'Email Address',
+    firstName: 'First Name',
+    lastName: 'Last Name',
+    email: 'Email',
     position: 'Position',
     department: 'Department',
     phone: 'Phone',
     startDate: 'Date of Employment',
     birthDate: 'Date of Birth',
+    actions: "Actions",
     selectDepartment: 'Select Department',
     cancel: 'Cancel',
     updateEmployee: 'Update Employee',
@@ -45,7 +47,8 @@ const languages = {
     startDateRequired: 'Start date is required',
     
     // Form Placeholders
-    enterFullName: 'Enter full name',
+    enterFirstName: 'Enter first name',
+    enterLastName: 'Enter last name',
     enterEmail: 'Enter email address',
     enterPosition: 'Enter position',
     phonePlaceholder: '+90 5xx xxx xxxx',
@@ -112,14 +115,17 @@ const languages = {
     deleteButton: 'Sil',
     
     // Employee Form
-    addNewEmployee: 'Yeni Çalışan Ekle',
+    addNewEmployee: 'Çalışan Ekle',
     editEmployee: 'Çalışanı Düzenle',
-    fullName: 'Ad Soyad',
-    emailAddress: 'E-posta Adresi',
+    firstName: 'Ad',
+    lastName: 'Soyad',
+    email: 'E-posta',
     position: 'Pozisyon',
     department: 'Departman',
-    phone: 'Telefon Numarası',
+    phone: 'Telefon',
+    birthDate: 'Doğum Tarihi',
     startDate: 'İşe Başlama Tarihi',
+    actions: "İşlemler",
     selectDepartment: 'Departman Seçin',
     cancel: 'İptal',
     updateEmployee: 'Çalışanı Güncelle',
@@ -135,7 +141,8 @@ const languages = {
     startDateRequired: 'İşe başlama tarihi gereklidir',
     
     // Form Placeholders
-    enterFullName: 'Ad soyad girin',
+    enterFirstName: 'Ad girin',
+    enterLastName: 'Soyad girin',
     enterEmail: 'E-posta adresi girin',
     enterPosition: 'Pozisyon girin',
     phonePlaceholder: '+90 5xx xxx xxxx',

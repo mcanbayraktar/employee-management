@@ -14,7 +14,8 @@ const formatDate = (dateString) => {
 const filterEmployees = (employees, searchTerm, departmentFilter) => {
   return employees.filter(employee => {
     const matchesSearch = !searchTerm || 
-      employee.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
       employee.email.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesDepartment = !departmentFilter || 
@@ -38,7 +39,7 @@ const employeeListStyles = css`
   :host {
     display: block;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    max-width: 1200px;
+    max-width: 1300px;
     margin: 0 auto;
     padding: 20px;
   }
@@ -51,9 +52,15 @@ const employeeListStyles = css`
     gap: 20px;
   }
 
+  .header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
   .title {
     color: #ff6200;
-    font-size: 2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     margin: 0;
   }
@@ -68,15 +75,16 @@ const employeeListStyles = css`
     border-radius: 8px;
   }
 
-  .filter-input, .filter-select {
+  .filter-input {
+    width: 100%;
     padding: 12px;
-    border: 1px solid #ddd;
+    border: none;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 12px;
     transition: border-color 0.2s;
   }
 
-  .filter-input:focus, .filter-select:focus {
+  .filter-input:focus {
     outline: none;
     border-color: #ff6200;
     box-shadow: 0 0 0 2px rgba(255, 98, 0, 0.1);
@@ -101,6 +109,8 @@ const employeeListStyles = css`
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 20px;
+    height: 550px;
+    overflow-y: auto;
   }
 
   .employee-card {
@@ -119,7 +129,6 @@ const employeeListStyles = css`
 
   .employee-name {
     font-size: 18px;
-    font-weight: 600;
     color: #333;
     margin-bottom: 5px;
   }
@@ -206,8 +215,6 @@ const employeeListStyles = css`
   /* View Toggle Styles */
   .view-toggle {
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
   }
 
   .view-toggle-button {
@@ -237,30 +244,35 @@ const employeeListStyles = css`
   .employee-table {
     background: white;
     border-radius: 12px;
-    overflow: hidden;
+    overflow: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #eee;
+    height: 550px;
   }
 
   .table-header {
-    background: #f8f9fa;
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 15px;
+    align-items: center;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) 1.5fr repeat(3, minmax(0, 1fr));
     padding: 15px 20px;
-    font-weight: 600;
-    color: #333;
+    color: #ED6C2D;
     border-bottom: 1px solid #eee;
+    text-align: center;
+    font-size: 12px;
   }
 
   .table-row {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 15px;
+    grid-template-columns: repeat(5, minmax(0, 1fr)) 1.5fr repeat(3, minmax(0, 1fr));
     padding: 15px 20px;
     border-bottom: 1px solid #f0f0f0;
     align-items: center;
     transition: background-color 0.2s;
+    text-align: center;
+    font-size: 12px;
+    color: #595959;
+    word-wrap: break-word;
+    white-space: normal;
   }
 
   .table-row:hover {
@@ -269,11 +281,6 @@ const employeeListStyles = css`
 
   .table-row:last-child {
     border-bottom: none;
-  }
-
-  .table-actions {
-    display: flex;
-    gap: 5px;
   }
 
   .table-action-btn {
@@ -438,9 +445,6 @@ export class EmployeeList extends LitElement {
       this.requestUpdate();
     };
     i18n.addListener(this.languageChangeHandler);
-    
-    // Load sample data
-    this.loadSampleEmployees();
   }
 
   disconnectedCallback() {
@@ -449,121 +453,7 @@ export class EmployeeList extends LitElement {
     i18n.removeListener(this.languageChangeHandler);
   }
 
-  // Pure helper methods
-  loadSampleEmployees = () => {
-    this.employees = [
-      {
-        id: 1,
-        name: 'Ahmet Yılmaz',
-        email: 'ahmet.yilmaz@company.com',
-        position: 'Senior Frontend Developer',
-        department: 'Engineering',
-        startDate: '2022-03-15',
-        phone: '+90 532 123 4567'
-      },
-      {
-        id: 2,
-        name: 'Elif Kaya',
-        email: 'elif.kaya@company.com',
-        position: 'UX Designer',
-        department: 'Design',
-        startDate: '2023-01-10',
-        phone: '+90 535 987 6543'
-      },
-      {
-        id: 3,
-        name: 'Mehmet Demir',
-        email: 'mehmet.demir@company.com',
-        position: 'Product Manager',
-        department: 'Product',
-        startDate: '2021-11-20',
-        phone: '+90 533 456 7890'
-      },
-      {
-        id: 4,
-        name: 'Ayşe Özkan',
-        email: 'ayse.ozkan@company.com',
-        position: 'Marketing Specialist',
-        department: 'Marketing',
-        startDate: '2023-06-01',
-        phone: '+90 534 789 0123'
-      },
-      {
-        id: 5,
-        name: 'Can Türk',
-        email: 'can.turk@company.com',
-        position: 'Backend Developer',
-        department: 'Engineering',
-        startDate: '2022-09-12',
-        phone: '+90 536 234 5678'
-      },
-      {
-        id: 6,
-        name: 'Zeynep Şahin',
-        email: 'zeynep.sahin@company.com',
-        position: 'Sales Manager',
-        department: 'Sales',
-        startDate: '2023-02-28',
-        phone: '+90 537 345 6789'
-      },
-      {
-        id: 7,
-        name: 'Emre Koç',
-        email: 'emre.koc@company.com',
-        position: 'DevOps Engineer',
-        department: 'Engineering',
-        startDate: '2022-07-18',
-        phone: '+90 538 456 7890'
-      },
-      {
-        id: 8,
-        name: 'Selin Arslan',
-        email: 'selin.arslan@company.com',
-        position: 'HR Specialist',
-        department: 'HR',
-        startDate: '2023-04-15',
-        phone: '+90 539 567 8901'
-      },
-      {
-        id: 9,
-        name: 'Burak Çelik',
-        email: 'burak.celik@company.com',
-        position: 'UI Designer',
-        department: 'Design',
-        startDate: '2022-12-05',
-        phone: '+90 531 678 9012'
-      },
-      {
-        id: 10,
-        name: 'Fatma Yıldız',
-        email: 'fatma.yildiz@company.com',
-        position: 'Data Analyst',
-        department: 'Product',
-        startDate: '2023-03-22',
-        phone: '+90 532 789 0123'
-      },
-      {
-        id: 11,
-        name: 'Murat Aydın',
-        email: 'murat.aydin@company.com',
-        position: 'QA Engineer',
-        department: 'Engineering',
-        startDate: '2022-11-08',
-        phone: '+90 533 890 1234'
-      },
-      {
-        id: 12,
-        name: 'Deniz Polat',
-        email: 'deniz.polat@company.com',
-        position: 'Content Marketing Manager',
-        department: 'Marketing',
-        startDate: '2023-05-10',
-        phone: '+90 534 901 2345'
-      }
-    ];
-  }
-
-  // Event handlers as arrow functions (like React)
+// Event handlers as arrow functions (like React)
   handleSearchChange = (event) => {
     this.searchTerm = event.target.value;
     this.currentPage = 1; // Reset to first page when searching
@@ -644,28 +534,34 @@ export class EmployeeList extends LitElement {
       <div class="header">
         <h1 class="title">${i18n.t('listTitle')}</h1>
 
-        <input
+        <div></div>
+        
+        <div></div>
+
+        <div class="header-actions">
+          <input
           type="text"
           class="filter-input"
           placeholder=${i18n.t('searchPlaceholder')}
           .value=${this.searchTerm}
           @input=${this.handleSearchChange}
-        />
-
-        <!-- View Toggle -->
-        <div class="view-toggle">
-          <button
-            class="view-toggle-button ${this.viewMode === 'table' ? 'active' : ''}"
-            @click=${() => this.handleViewModeChange('table')}
-          >
-            <img class="view-icon" src="./src/table.svg" alt="Table View">
-          </button>
-          <button
-            class="view-toggle-button ${this.viewMode === 'list' ? 'active' : ''}"
-            @click=${() => this.handleViewModeChange('list')}
-          >
-            <img class="view-icon" src="./src/list.svg" alt="list View">
-          </button>
+          />
+    
+          <!-- View Toggle -->
+            <div class="view-toggle">
+              <button
+                class="view-toggle-button ${this.viewMode === 'table' ? 'active' : ''}"
+                @click=${() => this.handleViewModeChange('table')}
+              >
+                <img class="view-icon" src="./src/table.svg" alt="Table View">
+              </button>
+              <button
+                class="view-toggle-button ${this.viewMode === 'list' ? 'active' : ''}"
+                @click=${() => this.handleViewModeChange('list')}
+              >
+                <img class="view-icon" src="./src/list.svg" alt="list View">
+              </button>
+            </div>
         </div>
       </div>
 
@@ -688,8 +584,10 @@ export class EmployeeList extends LitElement {
       <div class="employee-grid">
         ${employees.map(employee => html`
           <div class="employee-card">
-            <div class="employee-name">${employee.name}</div>
-           
+            <div class="employee-name">${employee.firstName}</div>
+
+            <div class="employee-last-name">${employee.lastName}</div>
+            
             <div class="employee-position">${employee.position}</div>
             
             <div class="employee-details">
@@ -731,20 +629,26 @@ export class EmployeeList extends LitElement {
     return html`
       <div class="employee-table">
         <div class="table-header">
-          <div></div>
-          <div>${i18n.t('fullName')}</div>
-          <div>${i18n.t('emailAddress')}</div>
+          <div>${i18n.t('firstName')}</div>
+          <div>${i18n.t('lastName')}</div>
+          <div>${i18n.t('startDate')}</div>
+          <div>${i18n.t('birthDate')}</div>
+          <div>${i18n.t('phone')}</div>
+          <div>${i18n.t('email')}</div>
           <div>${i18n.t('department')}</div>
-          <div>${i18n.t('editButton')}</div>
+          <div>${i18n.t('position')}</div> 
+          <div>${i18n.t('actions')}</div> 
         </div>
         ${employees.map(employee => html`
           <div class="table-row">
-            <div>
-              <div style="font-weight: 600;">${employee.name}</div>
-              <div style="font-size: 13px; color: #666;">${employee.position}</div>
-            </div>
+            <div>${employee.firstName}</div>
+            <div>${employee.lastName}</div>
+            <div>${employee.startDate}</div>
+            <div>${employee.birthDate}</div>
+            <div>${employee.phone}</div>
             <div>${employee.email}</div>
             <div>${i18n.getDepartments().find(d => d.value === employee.department)?.label || employee.department}</div>
+            <div >${employee.position}</div>
             <div class="table-actions">
               <button
                 class="table-action-btn edit"
