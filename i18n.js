@@ -78,15 +78,7 @@ const languages = {
     
     // Loading
     loading: 'Loading Employee Management System...',
-    
-    // Pagination
-    itemsPerPage: 'Items per page:',
-    showingItems: 'Showing {start}-{end} of {total}',
-    page: 'Page',
-    of: 'of',
-    previous: 'Previous',
-    next: 'Next',
-        
+            
     // Demo Page
     demoTitle: 'Employee Management System',
     demoSubtitle: 'Component Demo & Documentation',
@@ -143,7 +135,7 @@ const languages = {
     phoneInvalid: 'Lütfen geçerli bir telefon numarası girin',
     startDateRequired: 'İşe başlama tarihi gereklidir',
     birthDateRequired: 'Doğum tarihi gereklidir',
-    
+
     // Form Placeholders
     enterFirstName: 'Ad girin',
     enterLastName: 'Soyad girin',
@@ -175,14 +167,6 @@ const languages = {
     // Loading
     loading: 'Çalışan Yönetim Sistemi Yükleniyor...',
     
-    // Pagination
-    itemsPerPage: 'Sayfa başına öğe:',
-    showingItems: '{total} öğeden {start}-{end} gösteriliyor',
-    page: 'Sayfa',
-    of: '/',
-    previous: 'Önceki',
-    next: 'Sonraki',
-        
     // Demo Page
     demoTitle: 'Çalışan Yönetim Sistemi',
     demoSubtitle: 'Bileşen Demosu & Dokümantasyon',

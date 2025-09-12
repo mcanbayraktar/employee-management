@@ -329,14 +329,13 @@ const employeeListStyles = css`
 
   .pagination-button {
     padding: 8px 12px;
-    border: 1px solid #ddd;
-    background: white;
+    border: none;
+    background: none;
     color: #333;
     border-radius: 4px;
     cursor: pointer;
     font-size: 14px;
     transition: all 0.2s;
-    min-width: 40px;
     text-align: center;
   }
 
@@ -353,6 +352,7 @@ const employeeListStyles = css`
     background: #ff6200;
     color: white;
     border-color: #ff6200;
+    border-radius: 50%;
   }
 
   .pagination-text {
@@ -706,7 +706,7 @@ export class EmployeeList extends LitElement {
             @click=${() => this.handlePageChange(this.currentPage - 1)}
             ?disabled=${this.currentPage === 1}
           >
-            ${i18n.t('previous')}
+            <
           </button>
           
           ${pages.map(page => html`
@@ -723,7 +723,7 @@ export class EmployeeList extends LitElement {
             @click=${() => this.handlePageChange(this.currentPage + 1)}
             ?disabled=${this.currentPage === totalPages}
           >
-            ${i18n.t('next')}
+            >
           </button>
         </div>
       </div>
