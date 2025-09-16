@@ -60,84 +60,63 @@ const useFormValidation = () => {
   };
 };
 
-// Styles
+// Styles - matching employee-list styling
 const employeeFormStyles = css`
+  /* Universal font inheritance for form elements */
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
   :host {
-    display: block;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  }
-
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
     display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
+    flex-direction: column;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 20px;
+    height: 100vh;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
-  .modal-content {
-    background: white;
-    border-radius: 12px;
-    max-width: 600px;
-    width: 100%;
-    max-height: 90vh;
-    overflow-y: auto;
-    position: relative;
-  }
-
-  .modal-header {
-    padding: 24px 24px 0;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 12px;
-  }
-
-  .modal-title {
-    color: #ff6200;
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0 0 16px 0;
-  }
-
-  .close-button {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    color: #666;
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+  .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    justify-content: center;
+    margin-bottom: 30px;
+    gap: 20px;
   }
 
-  .close-button:hover {
-    background: #f5f5f5;
+  .title {
+    color: #ff6200;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
   }
 
   .form-container {
-    padding: 0 24px 24px;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 1px solid #eee;
+    max-height: 75vh;
+    overflow-y: auto;
   }
 
   .editing-info {
-    font-size: 10px;
+    background: #f8f9fa;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    font-size: 14px;
+    color: #666;
+    border-left: 4px solid #ff6200;
   }
 
   .form-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    margin-bottom: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 30px;
   }
 
   .form-group {
@@ -146,10 +125,10 @@ const employeeFormStyles = css`
   }
 
   .form-label {
-    font-weight: 500;
-    color: #333;
+    font-size: 12px;
+    color: #ACA7A7;
     margin-bottom: 8px;
-    font-size: 14px;
+    font-weight: 500;
   }
 
   .form-input,
@@ -160,6 +139,7 @@ const employeeFormStyles = css`
     font-size: 14px;
     transition: border-color 0.2s, box-shadow 0.2s;
     font-family: inherit;
+    background: white;
   }
 
   .form-input:focus,
@@ -172,50 +152,58 @@ const employeeFormStyles = css`
   .form-input.error,
   .form-select.error {
     border-color: #dc3545;
+    box-shadow: 0 0 0 2px rgba(220, 53, 69, 0.1);
   }
 
   .error-message {
     color: #dc3545;
-    font-size: 12px;
+    font-size: 11px;
     margin-top: 4px;
+    font-weight: 500;
   }
 
   .form-actions {
     display: flex;
-    gap: 12px;
+    gap: 15px;
     justify-content: center;
-    padding-top: 24px;
-    border-top: 1px solid #eee;
+    padding-top: 25px;
+    margin-top: 25px;
   }
 
   .action-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     padding: 12px 24px;
     border-radius: 6px;
-    font-weight: 500;
     cursor: pointer;
-    border: none;
-    transition: all 0.2s;
     font-size: 14px;
-    width: 100px;
+    font-weight: 500;
+    transition: all 0.2s;
+    border: none;
+    min-width: 120px;
   }
 
   .action-button.cancel {
     background: white;
     color: #525194;
-    border: 1px solid #525194;
+    border: 2px solid #525194;
   }
 
   .action-button.cancel:hover {
-    background: #e9ecef;
+    background: #f8f9fa;
+    border-color: #404080;
   }
 
   .action-button.submit {
     background: #ff6200;
     color: white;
+    border: 2px solid #ff6200;
   }
 
   .action-button.submit:hover {
     background: #e55a00;
+    border-color: #e55a00;
   }
 
   .action-button:disabled {
@@ -223,13 +211,65 @@ const employeeFormStyles = css`
     cursor: not-allowed;
   }
 
+  .close-button {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #ff6200;
+    padding: 8px;
+    border-radius: 50%;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+  }
+
+  .close-button:hover {
+    background: rgba(255, 98, 0, 0.1);
+    transform: rotate(90deg);
+  }
+
+  /* Responsive design */
+  @media (max-width: 1024px) {
+    .form-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
   @media (max-width: 768px) {
-    .modal-overlay {
-      padding: 10px;
+    :host {
+      padding: 15px;
     }
     
     .form-grid {
       grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .form-container {
+      padding: 20px;
+      max-height: 80vh;
+    }
+
+    .header {
+      margin-bottom: 20px;
+    }
+
+    .title {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .form-actions {
+      flex-direction: column;
+    }
+
+    .action-button {
+      width: 100%;
     }
   }
 `;
@@ -343,12 +383,6 @@ export class EmployeeForm extends LitElement {
     }));
   }
 
-  handleOverlayClick = (event) => {
-    if (event.target === event.currentTarget) {
-      this.handleClose();
-    }
-  }
-
   // Public method to open form
   open(employee = null) {
     this.employee = employee;
@@ -378,162 +412,154 @@ export class EmployeeForm extends LitElement {
     if (!this.isOpen) return html``;
 
     return html`
-      <div class="modal-overlay" @click=${this.handleOverlayClick}>
-        <div class="modal-content">
-          <button class="close-button" @click=${this.handleClose}>
-            ×
-          </button>
-          
-          <div class="modal-header">
-            <h2 class="modal-title">
-              ${this.isEdit ? i18n.t('editEmployee') : i18n.t('addNewEmployee')}
-            </h2>
+      <div class="header">
+        <h1 class="title">
+          ${this.isEdit ? i18n.t('editEmployee') : i18n.t('addNewEmployee')}
+        </h1>
+      </div>
+
+      <div class="form-container">
+        ${this.isEdit ? html`
+          <div class="editing-info">
+            ${i18n.t('youAreEditing')} ${this.formData.firstName} ${this.formData.lastName}
           </div>
-          
-          <div class="form-container">
-          ${this.isEdit ? html`
-            <p class="editing-info">You are editing ${this.formData.firstName} ${this.formData.lastName}</p>
-            ` : ''}
+        ` : ''}
 
-            <form @submit=${this.handleSubmit}>
-              <div class="form-grid">
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('firstName')} *</label>
-                  <input
-                    type="text"
-                    class="form-input ${this.errors.firstName ? 'error' : ''}"
-                    .value=${this.formData.firstName}
-                    @input=${this.handleInputChange('firstName')}
-                    placeholder=${i18n.t('enterFirstName')}
-                  />
-                  ${this.errors.firstName ? html`
-                    <div class="error-message">${this.errors.firstName}</div>
-                  ` : ''}
-                </div>
+        <form @submit=${this.handleSubmit}>
+          <div class="form-grid">
+            <div class="form-group">
+              <label class="form-label">${i18n.t('firstName')} *</label>
+              <input
+                type="text"
+                class="form-input ${this.errors.firstName ? 'error' : ''}"
+                .value=${this.formData.firstName}
+                @input=${this.handleInputChange('firstName')}
+                placeholder=${i18n.t('enterFirstName')}
+              />
+              ${this.errors.firstName ? html`
+                <div class="error-message">${this.errors.firstName}</div>
+              ` : ''}
+            </div>
 
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('lastName')} *</label>
-                  <input
-                    type="text"
-                    class="form-input ${this.errors.lastName ? 'error' : ''}"
-                    .value=${this.formData.lastName}
-                    @input=${this.handleInputChange('lastName')}
-                    placeholder=${i18n.t('enterLastName')}
-                  />
-                  ${this.errors.lastName ? html`
-                    <div class="error-message">${this.errors.lastName}</div>
-                  ` : ''}
-                </div>
+            <div class="form-group">
+              <label class="form-label">${i18n.t('lastName')} *</label>
+              <input
+                type="text"
+                class="form-input ${this.errors.lastName ? 'error' : ''}"
+                .value=${this.formData.lastName}
+                @input=${this.handleInputChange('lastName')}
+                placeholder=${i18n.t('enterLastName')}
+              />
+              ${this.errors.lastName ? html`
+                <div class="error-message">${this.errors.lastName}</div>
+              ` : ''}
+            </div>
 
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('startDate')} *</label>
-                  <input
-                    type="date"
-                    class="form-input ${this.errors.startDate ? 'error' : ''}"
-                    .value=${this.formData.startDate}
-                    @input=${this.handleInputChange('startDate')}
-                  />
-                  ${this.errors.startDate ? html`
-                    <div class="error-message">${this.errors.startDate}</div>
-                  ` : ''}
-                </div>
+            <div class="form-group">
+              <label class="form-label">${i18n.t('startDate')} *</label>
+              <input
+                type="date"
+                class="form-input ${this.errors.startDate ? 'error' : ''}"
+                .value=${this.formData.startDate}
+                @input=${this.handleInputChange('startDate')}
+              />
+              ${this.errors.startDate ? html`
+                <div class="error-message">${this.errors.startDate}</div>
+              ` : ''}
+            </div>
 
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('birthDate')} *</label>
-                  <input
-                    type="date"
-                    class="form-input ${this.errors.birthDate ? 'error' : ''}"
-                    .value=${this.formData.birthDate}
-                    @input=${this.handleInputChange('birthDate')}
-                  />
-                  ${this.errors.birthDate ? html`
-                    <div class="error-message">${this.errors.birthDate}</div>
-                  ` : ''}
-                </div>
+            <div class="form-group">
+              <label class="form-label">${i18n.t('birthDate')} *</label>
+              <input
+                type="date"
+                class="form-input ${this.errors.birthDate ? 'error' : ''}"
+                .value=${this.formData.birthDate}
+                @input=${this.handleInputChange('birthDate')}
+              />
+              ${this.errors.birthDate ? html`
+                <div class="error-message">${this.errors.birthDate}</div>
+              ` : ''}
+            </div>
 
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('phoneNumber')} *</label>
-                  <input
-                    type="tel"
-                    class="form-input ${this.errors.phone ? 'error' : ''}"
-                    .value=${this.formData.phone}
-                    @input=${this.handleInputChange('phone')}
-                    placeholder=${i18n.t('phonePlaceholder')}
-                  />
-                  ${this.errors.phone ? html`
-                    <div class="error-message">${this.errors.phone}</div>
-                  ` : ''}
-                </div>
+            <div class="form-group">
+              <label class="form-label">${i18n.t('phone')} *</label>
+              <input
+                type="tel"
+                class="form-input ${this.errors.phone ? 'error' : ''}"
+                .value=${this.formData.phone}
+                @input=${this.handleInputChange('phone')}
+                placeholder=${i18n.t('phonePlaceholder')}
+              />
+              ${this.errors.phone ? html`
+                <div class="error-message">${this.errors.phone}</div>
+              ` : ''}
+            </div>
 
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('email')} *</label>
-                  <input
-                    type="email"
-                    class="form-input ${this.errors.email ? 'error' : ''}"
-                    .value=${this.formData.email}
-                    @input=${this.handleInputChange('email')}
-                    placeholder=${i18n.t('enterEmail')}
-                  />
-                  ${this.errors.email ? html`
-                    <div class="error-message">${this.errors.email}</div>
-                  ` : ''}
-                </div>
+            <div class="form-group">
+              <label class="form-label">${i18n.t('email')} *</label>
+              <input
+                type="email"
+                class="form-input ${this.errors.email ? 'error' : ''}"
+                .value=${this.formData.email}
+                @input=${this.handleInputChange('email')}
+                placeholder=${i18n.t('enterEmail')}
+              />
+              ${this.errors.email ? html`
+                <div class="error-message">${this.errors.email}</div>
+              ` : ''}
+            </div>
 
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('department')} *</label>
-                  <select
-                  class="form-select ${this.errors.department ? 'error' : ''}"
-                  .value=${this.formData.department}
-                  @change=${this.handleInputChange('department')}
-                  >
-                    <option value="">${i18n.t('selectDepartment')}</option>
-                    ${this.departments.map(dept => html`
-                      <option value=${dept.value}>${dept.label}</option>
-                      `)}
-                  </select>
-                  ${this.errors.department ? html`
-                    <div class="error-message">${this.errors.department}</div>
-                    ` : ''}
-                </div>
+            <div class="form-group">
+              <label class="form-label">${i18n.t('department')} *</label>
+              <select
+                class="form-select ${this.errors.department ? 'error' : ''}"
+                .value=${this.formData.department}
+                @change=${this.handleInputChange('department')}
+              >
+                <option value="">${i18n.t('selectDepartment')}</option>
+                ${this.departments.map(dept => html`
+                  <option value=${dept.value}>${dept.label}</option>
+                `)}
+              </select>
+              ${this.errors.department ? html`
+                <div class="error-message">${this.errors.department}</div>
+              ` : ''}
+            </div>
 
-                <div class="form-group">
-                  <label class="form-label">${i18n.t('position')} *</label>
-                  <select
-                    class="form-select ${this.errors.position ? 'error' : ''}"
-                    .value=${this.formData.position}
-                    @change=${this.handleInputChange('position')}
-                  >
-                    <option value="">${i18n.t('selectPosition')}</option>
-                    ${this.positions.map(pos => html`
-                      <option value=${pos.value}>${pos.label}</option>
-                      `)}
-                  </select>
-
-                  ${this.errors.position ? html`
-                    <div class="error-message">${this.errors.position}</div>
-                  ` : ''}
-                </div>
-
-              </div>
-
-              <div class="form-actions">
-                <button
-                  type="submit"
-                  class="action-button submit"
-                >
-                  ${i18n.t('save')}
-                </button>
-                <button
-                  type="button"
-                  class="action-button cancel"
-                  @click=${this.handleClose}
-                >
-                  ${i18n.t('cancel')}
-                </button>
-              </div>
-            </form>
+            <div class="form-group">
+              <label class="form-label">${i18n.t('position')} *</label>
+              <select
+                class="form-select ${this.errors.position ? 'error' : ''}"
+                .value=${this.formData.position}
+                @change=${this.handleInputChange('position')}
+              >
+                <option value="">${i18n.t('selectPosition')}</option>
+                ${this.positions.map(pos => html`
+                  <option value=${pos.value}>${pos.label}</option>
+                `)}
+              </select>
+              ${this.errors.position ? html`
+                <div class="error-message">${this.errors.position}</div>
+              ` : ''}
+            </div>
           </div>
-        </div>
+
+          <div class="form-actions">
+            <button
+              type="submit"
+              class="action-button submit"
+            >
+              ${i18n.t('save')}
+            </button>
+            <button
+              type="button"
+              class="action-button cancel"
+              @click=${this.handleClose}
+            >
+              ${i18n.t('cancel')}
+            </button>
+          </div>
+        </form>
       </div>
     `;
   }
