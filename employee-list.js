@@ -37,11 +37,12 @@ const useEmployeeFilters = () => {
 // Styles as a separate concern (like styled-components)
 const employeeListStyles = css`
   :host {
-    display: block;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    height: 100vh;
   }
 
   .header {
@@ -237,12 +238,13 @@ const employeeListStyles = css`
 
   /* Table View Styles */
   .employee-table {
+    flex: 1;
     background: white;
     border-radius: 12px;
     overflow: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #eee;
-    height: 580px;
+    max-height: 75vh;
   }
 
   .table-header {
@@ -300,9 +302,10 @@ const employeeListStyles = css`
 
   /* Pagination Styles */
   .pagination-container {
-    margin-top: 10px;
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
+    margin-top: 1vh;
   }
 
   .pagination-info {

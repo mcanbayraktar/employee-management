@@ -282,16 +282,6 @@ class LocalizationManager {
     ];
   }
 
-  // Format currency based on language
-  formatCurrency(amount) {
-    const locale = this.currentLanguage === 'tr' ? 'tr-TR' : 'en-US';
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: 'TRY',
-      minimumFractionDigits: 0
-    }).format(amount);
-  }
-
   // Format date based on language
   formatDate(dateString) {
     const locale = this.currentLanguage === 'tr' ? 'tr-TR' : 'en-US';

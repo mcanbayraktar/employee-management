@@ -157,7 +157,6 @@ const appStyles = css`
   .main-content {
     background-color: #f6ecec;
     margin-top: 50px; /* push down content so it doesn't overlap header */
-    min-height: 100vh;
   }
 
   @media (max-width: 768px) {
