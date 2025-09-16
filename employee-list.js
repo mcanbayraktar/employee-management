@@ -159,6 +159,7 @@ const employeeListStyles = css`
   }
 
   .employee-actions {
+    margin-top: 12px; 
     display: flex;
     gap: 8px;
   }

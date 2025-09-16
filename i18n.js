@@ -58,9 +58,9 @@ const languages = {
     phonePlaceholder: '+90 5xx xxx xxxx',
     
     // Notifications
-    employeeAdded: '{name} has been added successfully!',
-    employeeUpdated: '{name} has been updated successfully!',
-    employeeDeleted: '{name} has been removed successfully!',
+    employeeAdded: '{fullName} has been added successfully!',
+    employeeUpdated: '{fullName} has been updated successfully!',
+    employeeDeleted: '{fullName} has been removed successfully!',
         
     // Departments
     tech: 'Tech',
@@ -158,9 +158,9 @@ const languages = {
     phonePlaceholder: '+90 5xx xxx xxxx',
     
     // Notifications
-    employeeAdded: '{name} başarıyla eklendi!',
-    employeeUpdated: '{name} başarıyla güncellendi!',
-    employeeDeleted: '{name} başarıyla kaldırıldı!',
+    employeeAdded: '{fullName} başarıyla eklendi!',
+    employeeUpdated: '{fullName} başarıyla güncellendi!',
+    employeeDeleted: '{fullName} başarıyla kaldırıldı!',
         
     // Departments
     tech: 'Teknoloji',

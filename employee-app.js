@@ -369,18 +369,19 @@ export class EmployeeApp extends LitElement {
   handleEmployeeCreated = (event) => {
     const newEmployee = event.detail.employee;
     this.employees = this.appState.addEmployee(this.employees, newEmployee);
-    showNotification(i18n.t('employeeAdded', { name: newEmployee.name }));
+    showNotification(i18n.t('employeeAdded', { fullName: newEmployee.firstName + ' ' + newEmployee.lastName }));
   }
 
   handleEmployeeUpdated = (event) => {
     const updatedEmployee = event.detail.employee;
     this.employees = this.appState.updateEmployee(this.employees, updatedEmployee);
-    showNotification(i18n.t('employeeUpdated', { name: updatedEmployee.name }));
+    showNotification(i18n.t('employeeUpdated', { fullName: updatedEmployee.firstName + ' ' + updatedEmployee.lastName }));
   }
 
   handleEmployeeDeleted = (event) => {
     const deletedEmployee = event.detail.employee;
-    showNotification(i18n.t('employeeDeleted', { name: deletedEmployee.name }));
+    this.employees = this.appState.deleteEmployee(this.employees, deletedEmployee.id);
+    showNotification(i18n.t('employeeDeleted', { fullName: deletedEmployee.firstName + ' ' + deletedEmployee.lastName }));
   }
 
   handleFormClosed = () => {
@@ -445,15 +446,6 @@ export class EmployeeApp extends LitElement {
             `
           }
         </main>
-
-        <!-- ${this.showForm ? html`
-          <employee-form
-            .isOpen=${this.showForm}
-            @employee-created=${this.handleEmployeeCreated}
-            @employee-updated=${this.handleEmployeeUpdated}
-            @form-closed=${this.handleFormClosed}
-          ></employee-form>
-        ` : ''} -->
       </div>
     `;
   }

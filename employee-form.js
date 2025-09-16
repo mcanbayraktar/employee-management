@@ -167,7 +167,6 @@ const employeeFormStyles = css`
     gap: 15px;
     justify-content: center;
     padding-top: 25px;
-    border-top: 1px solid #eee;
     margin-top: 25px;
   }
 
@@ -483,7 +482,7 @@ export class EmployeeForm extends LitElement {
             </div>
 
             <div class="form-group">
-              <label class="form-label">${i18n.t('phoneNumber')} *</label>
+              <label class="form-label">${i18n.t('phone')} *</label>
               <input
                 type="tel"
                 class="form-input ${this.errors.phone ? 'error' : ''}"
