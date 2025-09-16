@@ -36,6 +36,11 @@ const useEmployeeFilters = () => {
 
 // Styles as a separate concern (like styled-components)
 const employeeListStyles = css`
+  /* Universal font inheritance for form elements */
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
   :host {
     display: flex;
     flex-direction: column;
@@ -43,6 +48,7 @@ const employeeListStyles = css`
     margin: 0 auto;
     padding: 20px;
     height: 100vh;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .header {
@@ -410,7 +416,7 @@ export class EmployeeList extends LitElement {
     
     // Initialize pagination and view state
     this.currentPage = 1;
-    this.viewMode = 'table'; // 'list' or 'table'
+    this.viewMode = 'list'; // 'list' or 'table'
     this.itemsPerPage = 9;
 
     // Initialize "hooks"

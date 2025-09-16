@@ -64,7 +64,7 @@ const useFormValidation = () => {
 const employeeFormStyles = css`
   :host {
     display: block;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .modal-overlay {
@@ -159,7 +159,7 @@ const employeeFormStyles = css`
     border-radius: 6px;
     font-size: 14px;
     transition: border-color 0.2s, box-shadow 0.2s;
-    font-family: inherit;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .form-input:focus,

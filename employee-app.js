@@ -25,7 +25,7 @@ const showNotification = (message, type = 'success') => {
     background: ${type === 'success' ? '#28a745' : '#dc3545'};
     z-index: 10000;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   `;
   
   document.body.appendChild(notification);
@@ -56,10 +56,15 @@ const useAppState = () => {
 
 // Main app styles
 const appStyles = css`
+  /* Universal font inheritance for form elements */
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
   :host {
     display: block;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .app-container {
