@@ -4,6 +4,7 @@
  */
 
 import { LitElement, html, css } from 'lit';
+import './action-modal.js';
 import { i18n } from './i18n.js';
 
 // Utility functions (pure functions like React utils)
@@ -402,7 +403,11 @@ export class EmployeeList extends LitElement {
     departments: { type: Array },
     currentLanguage: { type: String, state: true },
     currentPage: { type: Number, state: true },
-    viewMode: { type: String, state: true } // 'list' or 'table'
+    viewMode: { type: String, state: true }, // 'list' or 'table'
+    openModal: { type: Boolean, state: true },
+    modalAction: { type: String, state: true },
+    modalRecordName: { type: String, state: true },
+    currentEmployee: { type: Object, state: true }
   };
 
   constructor() {
@@ -413,10 +418,14 @@ export class EmployeeList extends LitElement {
     this.departmentFilter = '';
     this.departments = i18n.getDepartments();
     this.currentLanguage = i18n.getLanguage();
-    
+    this.openModal = false;
+    this.modalAction = '';
+    this.modalRecordName = '';
+    this.currentEmployee = null;
+
     // Initialize pagination and view state
     this.currentPage = 1;
-    this.viewMode = 'list'; // 'list' or 'table'
+    this.viewMode = 'table'; // 'list' or 'table'
     this.itemsPerPage = 9;
 
     // Initialize "hooks"
@@ -472,14 +481,22 @@ export class EmployeeList extends LitElement {
   }
 
   handleDeleteEmployee = (employee) => {
-    if (confirm(i18n.t('confirmDelete', { name: employee.name }))) {
-      // Remove from local array
+    this.modalAction = 'delete';
+    this.modalRecordName = `${employee.firstName} ${employee.lastName}`;
+    this.currentEmployee = employee;
+    this.openModal = true;
+  }
+
+  handleModalConfirm = (detail) => {
+    if (detail.action === 'delete' && this.currentEmployee) {
       this.dispatchEvent(new CustomEvent('employee-deleted', {
         bubbles: true,
         composed: true,
-        detail: { employee }
+        detail: { employee: this.currentEmployee }
       }));
     }
+    this.openModal = false;
+    this.currentEmployee = null;
   }
 
   // Pagination utility functions
@@ -544,7 +561,17 @@ export class EmployeeList extends LitElement {
           <p>${i18n.t('noEmployeesMessage')}</p>
         </div>
       `}
-    `;
+
+      ${this.openModal ? html`
+        <action-modal
+          .open=${this.openModal}
+          .action=${this.modalAction}
+          .recordName=${this.modalRecordName}
+          @modal-close=${() => this.openModal = false}
+          @modal-confirm=${(e) => this.handleModalConfirm(e.detail)}
+        ></action-modal>
+      ` : ''} 
+    `
   }
 
   // Render list view

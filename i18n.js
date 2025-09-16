@@ -23,6 +23,7 @@ const languages = {
     // Employee Form
     addNewEmployee: 'Add Employee',
     editEmployee: 'Edit Employee',
+    youAreEditing: 'You are editing',
     firstName: 'First Name',
     lastName: 'Last Name',
     email: 'Email',
@@ -60,10 +61,7 @@ const languages = {
     employeeAdded: '{name} has been added successfully!',
     employeeUpdated: '{name} has been updated successfully!',
     employeeDeleted: '{name} has been removed successfully!',
-    
-    // Confirmation
-    confirmDelete: 'Are you sure you want to delete {name}?',
-    
+        
     // Departments
     tech: 'Tech',
     analytics: 'Analytics',
@@ -92,7 +90,19 @@ const languages = {
     componentArchitecture: 'Component Architecture',
     designSystem: 'Design System',
     gettingStarted: 'Getting Started',
-    startUsingApp: 'Start Using the App'
+    startUsingApp: 'Start Using the App',
+
+    // Modal translations
+    areYouSure: 'Are you sure?',
+    confirmDeleteMessage: 'Selected Employee record of',
+    confirmEditMessage: 'Do you want to edit',
+    willBeDeleted: 'will be deleted',
+    thisRecord: 'this record',
+    proceed: 'Proceed',
+    confirmDelete: 'Confirm deletion',
+    confirmEdit: 'Confirm edit',
+    close: 'Close'
+
   },
   
   tr: {
@@ -113,6 +123,7 @@ const languages = {
     // Employee Form
     addNewEmployee: 'Çalışan Ekle',
     editEmployee: 'Çalışanı Düzenle',
+    youAreEditing: 'Düzenliyorsunuz',
     firstName: 'Ad',
     lastName: 'Soyad',
     email: 'E-posta',
@@ -150,10 +161,7 @@ const languages = {
     employeeAdded: '{name} başarıyla eklendi!',
     employeeUpdated: '{name} başarıyla güncellendi!',
     employeeDeleted: '{name} başarıyla kaldırıldı!',
-    
-    // Confirmation
-    confirmDelete: '{name} adlı çalışanı silmek istediğinizden emin misiniz?',
-    
+        
     // Departments
     tech: 'Teknoloji',
     analytics: 'Analitik',
@@ -182,7 +190,19 @@ const languages = {
     componentArchitecture: 'Bileşen Mimarisi',
     designSystem: 'Tasarım Sistemi',
     gettingStarted: 'Başlarken',
-    startUsingApp: 'Uygulamayı Kullanmaya Başla'
+    startUsingApp: 'Uygulamayı Kullanmaya Başla',
+
+    // Modal translations
+    areYouSure: 'Emin misiniz?',
+    confirmDeleteMessage: 'Seçilen çalışan kaydı',
+    confirmEditMessage: 'Düzenlemek istediğiniz kayıt:',
+    willBeDeleted: 'silinecektir',
+    thisRecord: 'bu kayıt',
+    proceed: 'Devam Et',
+    confirmDelete: 'Silmeyi onayla',
+    confirmEdit: 'Düzenlemeyi onayla',
+    close: 'Kapat'
+
   }
 };
 

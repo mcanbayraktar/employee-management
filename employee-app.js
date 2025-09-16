@@ -425,24 +425,35 @@ export class EmployeeApp extends LitElement {
         </header>
 
         <main class="main-content">
-          <employee-list
-            .employees=${this.employees}
-            @add-employee=${this.handleAddEmployee}
-            @edit-employee=${this.handleEditEmployee}
-            @employee-deleted=${this.handleEmployeeDeleted}
-            @renderListView=${this.renderListView}
-            @renderTableView=${this.renderTableView}
-          ></employee-list>
+          ${
+            this.showForm ? html`
+              <employee-form
+                .isOpen=${this.showForm}
+                @employee-created=${this.handleEmployeeCreated}
+                @employee-updated=${this.handleEmployeeUpdated}
+                @form-closed=${this.handleFormClosed}
+              ></employee-form>`
+            : 
+            html`<employee-list
+              .employees=${this.employees}
+              @add-employee=${this.handleAddEmployee}
+              @edit-employee=${this.handleEditEmployee}
+              @employee-deleted=${this.handleEmployeeDeleted}
+              @renderListView=${this.renderListView}
+              @renderTableView=${this.renderTableView}
+            ></employee-list>
+            `
+          }
         </main>
 
-        ${this.showForm ? html`
+        <!-- ${this.showForm ? html`
           <employee-form
             .isOpen=${this.showForm}
             @employee-created=${this.handleEmployeeCreated}
             @employee-updated=${this.handleEmployeeUpdated}
             @form-closed=${this.handleFormClosed}
           ></employee-form>
-        ` : ''}
+        ` : ''} -->
       </div>
     `;
   }
