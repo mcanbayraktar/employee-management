@@ -23,6 +23,7 @@ const languages = {
     // Employee Form
     addNewEmployee: 'Add Employee',
     editEmployee: 'Edit Employee',
+    youAreEditing: 'You are editing',
     firstName: 'First Name',
     lastName: 'Last Name',
     email: 'Email',
@@ -57,13 +58,10 @@ const languages = {
     phonePlaceholder: '+90 5xx xxx xxxx',
     
     // Notifications
-    employeeAdded: '{name} has been added successfully!',
-    employeeUpdated: '{name} has been updated successfully!',
-    employeeDeleted: '{name} has been removed successfully!',
-    
-    // Confirmation
-    confirmDelete: 'Are you sure you want to delete {name}?',
-    
+    employeeAdded: '{fullName} has been added successfully!',
+    employeeUpdated: '{fullName} has been updated successfully!',
+    employeeDeleted: '{fullName} has been removed successfully!',
+        
     // Departments
     tech: 'Tech',
     analytics: 'Analytics',
@@ -92,7 +90,19 @@ const languages = {
     componentArchitecture: 'Component Architecture',
     designSystem: 'Design System',
     gettingStarted: 'Getting Started',
-    startUsingApp: 'Start Using the App'
+    startUsingApp: 'Start Using the App',
+
+    // Modal translations
+    areYouSure: 'Are you sure?',
+    confirmDeleteMessage: 'Selected Employee record of',
+    confirmEditMessage: 'Do you want to edit',
+    willBeDeleted: 'will be deleted',
+    thisRecord: 'this record',
+    proceed: 'Proceed',
+    confirmDelete: 'Confirm deletion',
+    confirmEdit: 'Confirm edit',
+    close: 'Close'
+
   },
   
   tr: {
@@ -113,6 +123,7 @@ const languages = {
     // Employee Form
     addNewEmployee: 'Çalışan Ekle',
     editEmployee: 'Çalışanı Düzenle',
+    youAreEditing: 'Düzenliyorsunuz',
     firstName: 'Ad',
     lastName: 'Soyad',
     email: 'E-posta',
@@ -147,13 +158,10 @@ const languages = {
     phonePlaceholder: '+90 5xx xxx xxxx',
     
     // Notifications
-    employeeAdded: '{name} başarıyla eklendi!',
-    employeeUpdated: '{name} başarıyla güncellendi!',
-    employeeDeleted: '{name} başarıyla kaldırıldı!',
-    
-    // Confirmation
-    confirmDelete: '{name} adlı çalışanı silmek istediğinizden emin misiniz?',
-    
+    employeeAdded: '{fullName} başarıyla eklendi!',
+    employeeUpdated: '{fullName} başarıyla güncellendi!',
+    employeeDeleted: '{fullName} başarıyla kaldırıldı!',
+        
     // Departments
     tech: 'Teknoloji',
     analytics: 'Analitik',
@@ -182,7 +190,19 @@ const languages = {
     componentArchitecture: 'Bileşen Mimarisi',
     designSystem: 'Tasarım Sistemi',
     gettingStarted: 'Başlarken',
-    startUsingApp: 'Uygulamayı Kullanmaya Başla'
+    startUsingApp: 'Uygulamayı Kullanmaya Başla',
+
+    // Modal translations
+    areYouSure: 'Emin misiniz?',
+    confirmDeleteMessage: 'Seçilen çalışan kaydı',
+    confirmEditMessage: 'Düzenlemek istediğiniz kayıt:',
+    willBeDeleted: 'silinecektir',
+    thisRecord: 'bu kayıt',
+    proceed: 'Devam Et',
+    confirmDelete: 'Silmeyi onayla',
+    confirmEdit: 'Düzenlemeyi onayla',
+    close: 'Kapat'
+
   }
 };
 
@@ -280,16 +300,6 @@ class LocalizationManager {
       { key: 'mid', value: 'Mid', label: this.t('mid') },
       { key: 'senior', value: 'Senior', label: this.t('senior') }
     ];
-  }
-
-  // Format currency based on language
-  formatCurrency(amount) {
-    const locale = this.currentLanguage === 'tr' ? 'tr-TR' : 'en-US';
-    return new Intl.NumberFormat(locale, {
-      style: 'currency',
-      currency: 'TRY',
-      minimumFractionDigits: 0
-    }).format(amount);
   }
 
   // Format date based on language

@@ -4,6 +4,7 @@
  */
 
 import { LitElement, html, css } from 'lit';
+import './action-modal.js';
 import { i18n } from './i18n.js';
 
 // Utility functions (pure functions like React utils)
@@ -36,12 +37,19 @@ const useEmployeeFilters = () => {
 
 // Styles as a separate concern (like styled-components)
 const employeeListStyles = css`
+  /* Universal font inheritance for form elements */
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
   :host {
-    display: block;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+    height: 100vh;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .header {
@@ -151,6 +159,7 @@ const employeeListStyles = css`
   }
 
   .employee-actions {
+    margin-top: 12px; 
     display: flex;
     gap: 8px;
   }
@@ -237,12 +246,13 @@ const employeeListStyles = css`
 
   /* Table View Styles */
   .employee-table {
+    flex: 1;
     background: white;
     border-radius: 12px;
     overflow: auto;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border: 1px solid #eee;
-    height: 580px;
+    max-height: 75vh;
   }
 
   .table-header {
@@ -300,9 +310,10 @@ const employeeListStyles = css`
 
   /* Pagination Styles */
   .pagination-container {
-    margin-top: 10px;
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
+    margin-top: 1vh;
   }
 
   .pagination-info {
@@ -393,7 +404,11 @@ export class EmployeeList extends LitElement {
     departments: { type: Array },
     currentLanguage: { type: String, state: true },
     currentPage: { type: Number, state: true },
-    viewMode: { type: String, state: true } // 'list' or 'table'
+    viewMode: { type: String, state: true }, // 'list' or 'table'
+    openModal: { type: Boolean, state: true },
+    modalAction: { type: String, state: true },
+    modalRecordName: { type: String, state: true },
+    currentEmployee: { type: Object, state: true }
   };
 
   constructor() {
@@ -404,7 +419,11 @@ export class EmployeeList extends LitElement {
     this.departmentFilter = '';
     this.departments = i18n.getDepartments();
     this.currentLanguage = i18n.getLanguage();
-    
+    this.openModal = false;
+    this.modalAction = '';
+    this.modalRecordName = '';
+    this.currentEmployee = null;
+
     // Initialize pagination and view state
     this.currentPage = 1;
     this.viewMode = 'table'; // 'list' or 'table'
@@ -463,14 +482,22 @@ export class EmployeeList extends LitElement {
   }
 
   handleDeleteEmployee = (employee) => {
-    if (confirm(i18n.t('confirmDelete', { name: employee.name }))) {
-      // Remove from local array
+    this.modalAction = 'delete';
+    this.modalRecordName = `${employee.firstName} ${employee.lastName}`;
+    this.currentEmployee = employee;
+    this.openModal = true;
+  }
+
+  handleModalConfirm = (detail) => {
+    if (detail.action === 'delete' && this.currentEmployee) {
       this.dispatchEvent(new CustomEvent('employee-deleted', {
         bubbles: true,
         composed: true,
-        detail: { employee }
+        detail: { employee: this.currentEmployee }
       }));
     }
+    this.openModal = false;
+    this.currentEmployee = null;
   }
 
   // Pagination utility functions
@@ -535,7 +562,17 @@ export class EmployeeList extends LitElement {
           <p>${i18n.t('noEmployeesMessage')}</p>
         </div>
       `}
-    `;
+
+      ${this.openModal ? html`
+        <action-modal
+          .open=${this.openModal}
+          .action=${this.modalAction}
+          .recordName=${this.modalRecordName}
+          @modal-close=${() => this.openModal = false}
+          @modal-confirm=${(e) => this.handleModalConfirm(e.detail)}
+        ></action-modal>
+      ` : ''} 
+    `
   }
 
   // Render list view

@@ -25,7 +25,7 @@ const showNotification = (message, type = 'success') => {
     background: ${type === 'success' ? '#28a745' : '#dc3545'};
     z-index: 10000;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   `;
   
   document.body.appendChild(notification);
@@ -56,10 +56,15 @@ const useAppState = () => {
 
 // Main app styles
 const appStyles = css`
+  /* Universal font inheritance for form elements */
+  button, input, select, textarea {
+    font-family: inherit;
+  }
+
   :host {
     display: block;
     min-height: 100vh;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'ING Me Regular', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
   .app-container {
@@ -157,7 +162,6 @@ const appStyles = css`
   .main-content {
     background-color: #f6ecec;
     margin-top: 50px; /* push down content so it doesn't overlap header */
-    min-height: 100vh;
   }
 
   @media (max-width: 768px) {
@@ -365,18 +369,19 @@ export class EmployeeApp extends LitElement {
   handleEmployeeCreated = (event) => {
     const newEmployee = event.detail.employee;
     this.employees = this.appState.addEmployee(this.employees, newEmployee);
-    showNotification(i18n.t('employeeAdded', { name: newEmployee.name }));
+    showNotification(i18n.t('employeeAdded', { fullName: newEmployee.firstName + ' ' + newEmployee.lastName }));
   }
 
   handleEmployeeUpdated = (event) => {
     const updatedEmployee = event.detail.employee;
     this.employees = this.appState.updateEmployee(this.employees, updatedEmployee);
-    showNotification(i18n.t('employeeUpdated', { name: updatedEmployee.name }));
+    showNotification(i18n.t('employeeUpdated', { fullName: updatedEmployee.firstName + ' ' + updatedEmployee.lastName }));
   }
 
   handleEmployeeDeleted = (event) => {
     const deletedEmployee = event.detail.employee;
-    showNotification(i18n.t('employeeDeleted', { name: deletedEmployee.name }));
+    this.employees = this.appState.deleteEmployee(this.employees, deletedEmployee.id);
+    showNotification(i18n.t('employeeDeleted', { fullName: deletedEmployee.firstName + ' ' + deletedEmployee.lastName }));
   }
 
   handleFormClosed = () => {
@@ -421,24 +426,26 @@ export class EmployeeApp extends LitElement {
         </header>
 
         <main class="main-content">
-          <employee-list
-            .employees=${this.employees}
-            @add-employee=${this.handleAddEmployee}
-            @edit-employee=${this.handleEditEmployee}
-            @employee-deleted=${this.handleEmployeeDeleted}
-            @renderListView=${this.renderListView}
-            @renderTableView=${this.renderTableView}
-          ></employee-list>
+          ${
+            this.showForm ? html`
+              <employee-form
+                .isOpen=${this.showForm}
+                @employee-created=${this.handleEmployeeCreated}
+                @employee-updated=${this.handleEmployeeUpdated}
+                @form-closed=${this.handleFormClosed}
+              ></employee-form>`
+            : 
+            html`<employee-list
+              .employees=${this.employees}
+              @add-employee=${this.handleAddEmployee}
+              @edit-employee=${this.handleEditEmployee}
+              @employee-deleted=${this.handleEmployeeDeleted}
+              @renderListView=${this.renderListView}
+              @renderTableView=${this.renderTableView}
+            ></employee-list>
+            `
+          }
         </main>
-
-        ${this.showForm ? html`
-          <employee-form
-            .isOpen=${this.showForm}
-            @employee-created=${this.handleEmployeeCreated}
-            @employee-updated=${this.handleEmployeeUpdated}
-            @form-closed=${this.handleFormClosed}
-          ></employee-form>
-        ` : ''}
       </div>
     `;
   }
